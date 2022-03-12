@@ -1,11 +1,13 @@
 const { DataTypes } = require('sequelize');
 
+
 module.exports = (sequelize) => {
  
-  sequelize.define('breed', {
+  sequelize.define('temperament', {
     id: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
     },
     name: {
         type: DataTypes.STRING,
@@ -13,3 +15,4 @@ module.exports = (sequelize) => {
     }
   });
 };
+
