@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router, response } = require('express');
 const axios = require('axios')
 const { Sequelize } = require('sequelize');
 const { Breed, Temperament } = require('../db')
@@ -15,17 +15,19 @@ router.get('/dogs', (req, res, next) => {
     if(name){
         try {
             let axios_p = axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}`)
-            let database = Breed.findAll({ 
+            let database_p = Breed.findAll({ 
                 where:{
                     name: {
                         [Op.substring]: name
                     }
                 }})
-                Promise.all([ axios_p, database ])
-                .then( res => { 
-                    const [ respAxios, respDatabase] = res
+                Promise.all([ axios_p, database_p ])
+                .then( response => { 
+                    let [ respAxios, respDatabase] = response
+                    respAxios = respAxios.data
                     let result = [...respAxios, ...respDatabase]
-                    res.send(result)
+                    console.log(result)
+                    res.json(result)
                 })
             } catch (error) {
                 next(error)
@@ -61,47 +63,53 @@ router.get('/dogs', (req, res, next) => {
         }
     }
 })
-// router.get('/dogs', (req, res, next) => {
-//     const { name } = req.query
-//     if(name){
-//         try {
-//             Breed.findAll({ 
-//                 where:{
-//                     name: {
-//                         [Op.substring]: name
-//                     }
-//             }})
-//             .then(data => res.send(data))
-//         } catch (error) {
-//             next(error)
-//         }
-//     }
-//     else {
-//         try {
-//             Breed.findAll()
-//             .then( dog => res.send(dog) ) //Pendiente modificar res.
-//         } catch (error) {
-//             next(error)
-//         }
 
-//     }
-// })
 
 // GET CON ID DE LA RAZA X PARAMS
+router.get('/dogs/:id', async(req, res, next) => {
+    let { id } = req.params
 
-
-
-
-router.get('/dogs/:id', (req, res, next) => {
-    const { id } = req.params
-    Breed.findByPk(id)
-    .then( data => res.send(data) )
+    if(typeof id === 'string' && id.length < 3){
+        id = parseInt(id)
+        let allBreeds = await axios.get('https://api.thedogapi.com/v1/breeds/')
+        allBreeds = allBreeds.data
+        return res.send(allBreeds.find( breed => id === breed.id))
+    }else{
+        return Breed.findByPk(id)
+        .then( data => res.send(data) )
+    }
 })
 
 // GET DE LOS TEMPERAMENTOS
-router.get('/temperament', (req, res, next) => {
-
-    res.send('Get en /temperament')
+router.get('/temperament', async (req, res, next) => {
+    try {
+        let searchTemp = await Temperament.findAll()
+        if(searchTemp.length>1){
+            res.send(searchTemp)
+        }
+        else{
+            let allDogs = await axios.get('https://api.thedogapi.com/v1/breeds/')
+            allDogs = allDogs.data
+            let temperament = []
+            for(let i=0; i<allDogs.length; i++){
+                if(allDogs[i].temperament){
+                    temperament.push(allDogs[i].temperament.split(', '))
+                }
+            }
+            let filteredTemp = []
+            for(let i=0; i<temperament.length; i++){
+                temperament[i].forEach( el => filteredTemp.push(el))
+            }
+            let uniq = [...new Set(filteredTemp)];
+            let result = uniq.map( el => el = { name: el })
+            console.log(result)
+            Temperament.bulkCreate(result)
+            let searchTemp = await Temperament.findAll()
+            res.send(searchTemp)
+        }
+    } catch (error) {
+        next(error)
+    }
 })
 
 // POST DE UNA NUEVA RAZA A LA DATABASE
