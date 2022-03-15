@@ -26,7 +26,6 @@ router.get('/dogs', (req, res, next) => {
                     let [ respAxios, respDatabase] = response
                     respAxios = respAxios.data
                     let result = [...respAxios, ...respDatabase]
-                    console.log(result)
                     res.json(result)
                 })
             } catch (error) {
@@ -102,7 +101,6 @@ router.get('/temperament', async (req, res, next) => {
             }
             let uniq = [...new Set(filteredTemp)];
             let result = uniq.map( el => el = { name: el })
-            console.log(result)
             Temperament.bulkCreate(result)
             let searchTemp = await Temperament.findAll()
             res.send(searchTemp)
