@@ -5,11 +5,11 @@ export const ADD_BREED = "ADD_BREED";
 
 export function getAllBreeds(){
     return function (dispatch){
-        axios.get('http://localhost:3001/api/temperament')
+        axios.get('http://localhost:3001/api/dogs')
         .then(data => {
             dispatch({
                 type: GET_ALL_BREEDS,
-                payload: data
+                payload: data.data
             })
         })
     }
