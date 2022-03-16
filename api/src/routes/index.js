@@ -14,7 +14,7 @@ router.get('/dogs', (req, res, next) => {
     const { name } = req.query
     if(name){
         try {
-            let axios_p = axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}`)
+            let axios_p = axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}?api_key={API_KEY}`)
             let database_p = Breed.findAll({ 
                 where:{
                     name: {
@@ -34,7 +34,7 @@ router.get('/dogs', (req, res, next) => {
     }
     else {
         try {
-            let dogsFromAPI = axios.get('https://api.thedogapi.com/v1/breeds')
+            let dogsFromAPI = axios.get('https://api.thedogapi.com/v1/breeds?api_key={API_KEY}')
             let dogsFromDB = Breed.findAll()
             Promise.all([dogsFromAPI, dogsFromDB])
             .then ( result => {
