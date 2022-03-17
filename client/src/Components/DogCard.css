@@ -1,0 +1,21 @@
+
+.mainDiv {
+    width: 400px;
+    border: solid blue 1px;
+    background-color: beige;
+    border-radius: 7px;
+    /* padding: 10px; */
+    margin: 10px;
+    
+}
+.mainDiv img {
+   max-height: 70%;
+   max-width: 70%;
+   border-radius: 7px;
+}
+/* .secondDiv{
+    width: 200px;
+    height: 200px;
+ 
+} */
+

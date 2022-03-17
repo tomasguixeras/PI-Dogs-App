@@ -22,7 +22,13 @@ export default function Home (){
             </div>
             <select />
         </div>
-        {/* {breeds.map( e => <Card /> )} */}
+        {breeds.map( e => (
+            <Card 
+                key= {e.id}
+                image= {e.image}
+                name= {e.name}
+                weight= {e.weight}
+            />) )}
 
     </div>
 }
