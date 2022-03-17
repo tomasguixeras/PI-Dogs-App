@@ -1,8 +1,7 @@
 .mainDiv{
+    background-color: aqua;
     display: flex;
     align-items: center;
-    justify-content:space-around; 
-
+    justify-content:space-between; 
     padding: 27px;
-    margin: 7px;
 }
