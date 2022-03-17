@@ -10,24 +10,36 @@ const router = Router();
 // Configurar los routers
 
 // GET DE RAZAS (SIN QUERY) + DETALLE DE RAZA (CON QUERY)
-router.get('/dogs', (req, res, next) => {
+router.get('/dogs', async (req, res, next) => {
     const { name } = req.query
     if(name){
         try {
-            let axios_p = axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}?api_key={API_KEY}`)
-            let database_p = Breed.findAll({ 
+            let dogsApi = await axios.get('https://api.thedogapi.com/v1/breeds?api_key={API_KEY}')
+            let dogsDatabase = await Breed.findAll({ 
                 where:{
                     name: {
                         [Op.substring]: name
                     }
                 }})
-                Promise.all([ axios_p, database_p ])
-                .then( response => { 
-                    let [ respAxios, respDatabase] = response
-                    respAxios = respAxios.data
-                    let result = [...respAxios, ...respDatabase]
-                    res.json(result)
-                })
+            dogsApi = dogsApi.data
+            dogsApi = dogsApi.filter( dog => dog.name.includes(name))
+            dogsApi = dogsApi.map( dog => {
+                return {
+                    id: dog.id,
+                    name: dog.name,
+                    weight: dog.weight.metric,
+                    image: dog.image.url
+                }
+            })
+            dogsDatabase = dogsDatabase.map( dog => {
+                return {
+                    id: dog.id,
+                    name: dog.name,
+                    weight: dog.weight.metric
+                }
+            })
+            let result = [...dogsApi, ...dogsDatabase]
+            res.json(result)
             } catch (error) {
                 next(error)
             }

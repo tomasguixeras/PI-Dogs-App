@@ -25,4 +25,12 @@
     align-items: center;
     justify-content: center; 
 }
+.weight{
+    display: flex;
+    margin: 10px;
+}
+
+.weight h4{
+    margin: 2px;
+}
 

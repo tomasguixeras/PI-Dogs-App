@@ -1,11 +1,3 @@
-.subNav{
-    border: solid blueviolet 1px;
-    padding: 15px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
 .cards{
     padding: 10px;
     display: grid;

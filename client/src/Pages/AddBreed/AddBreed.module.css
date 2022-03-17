@@ -1,0 +1,14 @@
+.form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: solid 2px blue;
+    padding: 7px;
+    margin: 7px;
+}
+input{
+    margin: 7px;
+    padding: 7px;
+    width: 80%;
+}
