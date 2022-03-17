@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { getAllBreeds } from '../../Redux/Actions'
 
-import NavBar from '../../Components/NavBar.jsx'
-import Card from '../../Components/DogCard.jsx'
+import NavBar from '../../Components/NavBar/NavBar.jsx'
+import Card from '../../Components/DogCard/DogCard.jsx'
 
 
 export default function Home (){

@@ -1,0 +1,27 @@
+
+.mainDiv {
+    width: 300px;
+    border: solid blue 1px;
+    background-color: beige;
+    border-radius: 7px;
+    /* padding: 10px; */
+    margin: 10px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center;  */
+    
+}
+.mainDiv img {
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 7px;
+}
+.secondDiv{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+}
+

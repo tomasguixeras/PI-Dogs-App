@@ -1,0 +1,13 @@
+/* html, body {
+    background-color: beige;
+    margin:0px;
+    height:100%;
+  } */
+  
+  .box {
+    background-image: url(dog2.gif);
+    background-repeat: no-repeat;
+    background-size:cover;
+    height:100vh;
+    
+  }
