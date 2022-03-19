@@ -12,10 +12,14 @@ export default function DogCard (props){
         <div className={styles.secondDiv}>
             <h2>{props.name}</h2>
             <img src={props.image} alt='Dog'/>
-            <div className={styles.weight}>
-                <h4>Weight: </h4>
-                <h4>{props.weight}</h4>
-                <h4>Kg</h4>
+            <h4>{`Weight: ${props.weight}Kg`}</h4>
+            <div className={styles.temperaments}>
+            {
+                props.temperament ? props.temperament.map(temp => {
+                    
+                        return <div className={styles.temp}>{temp}</div>
+                }) : ''
+            }
             </div>
         </div>
     </div>

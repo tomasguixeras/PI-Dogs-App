@@ -4,14 +4,13 @@ const { Sequelize } = require('sequelize');
 const { Breed, Temperament } = require('../db')
 const Op = Sequelize.Op
 
-
 const router = Router();
 
 // Configurar los routers
 
 // GET DE RAZAS (SIN QUERY) + DETALLE DE RAZA (CON QUERY)
 router.get('/dogs', async (req, res, next) => {
-    const { name } = req.query
+    let { name } = req.query
     if(name){
         try {
             let dogsApi = await axios.get('https://api.thedogapi.com/v1/breeds?api_key={API_KEY}')
@@ -22,27 +21,36 @@ router.get('/dogs', async (req, res, next) => {
                     }
                 }})
             dogsApi = dogsApi.data
-            dogsApi = dogsApi.filter( dog => dog.name.includes(name))
+            dogsApi = dogsApi.filter( dog => {
+                return dog.name.toLowerCase().includes(name.toLowerCase())
+            })
             dogsApi = dogsApi.map( dog => {
-                return {
+                let weight = dog.weight.metric 
+                let temperaments
+                if(dog.temperament) temperaments = dog.temperament.split(', ')
+                weight = weight.split(' - ').map( str => parseFloat(str) )
+                if(weight.length>1) weight = (weight[0]+weight[1])/2
+                else weight = weight[0]
+                return{
                     id: dog.id,
                     name: dog.name,
-                    weight: dog.weight.metric,
-                    image: dog.image.url
+                    weight: weight,
+                    image: dog.image.url,
+                    temperament: temperaments
                 }
             })
             dogsDatabase = dogsDatabase.map( dog => {
                 return {
                     id: dog.id,
                     name: dog.name,
-                    weight: dog.weight.metric
+                    weight: dog.weight
                 }
             })
-            let result = [...dogsApi, ...dogsDatabase]
-            res.json(result)
-            } catch (error) {
-                next(error)
-            }
+        let result = [...dogsApi, ...dogsDatabase]
+        res.json(result)
+        } catch (error) {
+            next(error)
+        }
     }
     else {
         try {
@@ -50,24 +58,31 @@ router.get('/dogs', async (req, res, next) => {
             let dogsFromDB = Breed.findAll()
             Promise.all([dogsFromAPI, dogsFromDB])
             .then ( result => {
-                const [ dogsAPI, dogsDB ] = result
-                let filteredAPI = dogsAPI.data.map( dog => {
-                    return {
-                        id: dog.id,
-                        name: dog.name,
-                        weight: dog.weight.metric,
-                        image: dog.image.url
-                    }
-                })
-                let filteredDB = dogsDB.map( dog => {
-                    return {
-                        id: dog.id,
-                        name: dog.name,
-                        weight: dog.weight,
-                    }
-                })
-                let allBreeds = [...filteredDB, ...filteredAPI]
-                res.send(allBreeds)
+            const [ dogsAPI, dogsDB ] = result
+            let filteredAPI = dogsAPI.data.map( dog => {  
+                let weight = dog.weight.metric 
+                let temperaments
+                if(dog.temperament) temperaments = dog.temperament.split(', ')
+                weight = weight.split(' - ').map( str => parseFloat(str) )
+                if(weight.length>1) weight = (weight[0]+weight[1])/2
+                else weight = weight[0]
+                return{
+                    id: dog.id,
+                    name: dog.name,
+                    weight: weight,
+                    image: dog.image.url,
+                    temperament: temperaments
+                }
+            })
+            let filteredDB = dogsDB.map( dog => {
+                return {
+                    id: dog.id,
+                    name: dog.name,
+                    weight: dog.weight,
+                }
+            })
+            let allBreeds = [...filteredDB, ...filteredAPI]
+            res.send(allBreeds)
             })
         } catch (error) {
             next(error)

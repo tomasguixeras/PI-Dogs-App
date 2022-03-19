@@ -5,3 +5,10 @@
     flex-direction: row;
     justify-content: space-between;
 }
+.searchBar{
+    display: flex;
+    flex-direction: row;
+}
+#inputText{
+    width: 270px;
+}

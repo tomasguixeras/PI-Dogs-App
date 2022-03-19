@@ -11,11 +11,11 @@ import Card from '../../Components/DogCard/DogCard.jsx'
 
 
 export default function Home (){
-    let breeds = useSelector(state => state.breeds)
+    let breeds = useSelector(state => state.filteredBreeds)
     let dispatch = useDispatch()
     useEffect(()=>{
         dispatch(getAllBreeds())
-    }, [])
+    }, [dispatch])
     return (
     <div>
         <NavBar />
@@ -27,6 +27,7 @@ export default function Home (){
                     image= {e.image}
                     name= {e.name}
                     weight= {e.weight}
+                    temperament= {e.temperament}
              />) )}
         </div>
 

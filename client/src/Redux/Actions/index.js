@@ -4,8 +4,10 @@ export const GET_BREED_DETAIL = "GET_BREED_DETAIL";
 export const GET_BREED_BY_NAME = "GET_BREED_BY_NAME";
 export const ADD_BREED = "ADD_BREED";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
+export const SORT_ALPHA = "SORT_ALPHA";
+export const SORT_WEIGHT = "SORT_WEIGHT"
 
-export function getAllBreeds(name){
+export function getAllBreeds(){
     return function (dispatch){
         axios.get('http://localhost:3001/api/dogs')
         .then(data => {
@@ -52,5 +54,17 @@ export function getTemperaments(){
 export function addBreed(values){
     return function (){
         axios.post('')
+    }
+}
+export function sortAlpha(alphabeticalOrder){
+    return{
+        type: SORT_ALPHA,
+        payload: alphabeticalOrder
+    }
+}
+export function sortWeight(numericalOrder){
+    return{
+        type: SORT_WEIGHT,
+        payload: numericalOrder
     }
 }
