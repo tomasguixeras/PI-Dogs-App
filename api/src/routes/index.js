@@ -43,7 +43,8 @@ router.get('/dogs', async (req, res, next) => {
                 return {
                     id: dog.id,
                     name: dog.name,
-                    weight: dog.weight
+                    weight: dog.weight,
+                    image: dog.image
                 }
             })
         let result = [...dogsApi, ...dogsDatabase]
@@ -61,11 +62,11 @@ router.get('/dogs', async (req, res, next) => {
             const [ dogsAPI, dogsDB ] = result
             let filteredAPI = dogsAPI.data.map( dog => {  
                 let weight = dog.weight.metric 
-                let temperaments
-                if(dog.temperament) temperaments = dog.temperament.split(', ')
                 weight = weight.split(' - ').map( str => parseFloat(str) )
                 if(weight.length>1) weight = (weight[0]+weight[1])/2
                 else weight = weight[0]
+                let temperaments
+                if(dog.temperament) temperaments = dog.temperament.split(', ')
                 return{
                     id: dog.id,
                     name: dog.name,
@@ -79,6 +80,7 @@ router.get('/dogs', async (req, res, next) => {
                     id: dog.id,
                     name: dog.name,
                     weight: dog.weight,
+                    image: dog.image
                 }
             })
             let allBreeds = [...filteredDB, ...filteredAPI]
@@ -95,8 +97,8 @@ router.get('/dogs', async (req, res, next) => {
 router.get('/dogs/:id', async(req, res, next) => {
     try {
         let { id } = req.params
-        let verify = parseInt(id)
-        if(typeof verify === 'number'){
+        //let verify = parseInt(id)
+        if( id.length <= 3 ){
             id = parseInt(id)
             let allBreeds = await axios.get('https://api.thedogapi.com/v1/breeds/')
             allBreeds = allBreeds.data.find( breed => id === breed.id)

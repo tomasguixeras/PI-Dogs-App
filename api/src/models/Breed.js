@@ -24,6 +24,10 @@ module.exports = (sequelize) => {
     },
     lifeSpan: {
         type: DataTypes.STRING
+    },
+    image: {
+        type: DataTypes.STRING, 
+        defaultValue: "https://i.pinimg.com/originals/79/70/45/797045541e31863cbf817b4b2306480a.jpg"
     }
   });
 };
