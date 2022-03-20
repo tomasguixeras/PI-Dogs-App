@@ -17,6 +17,7 @@ export default function SearchBar(){
     function onImputChange(e){
         e.preventDefault()
         setSearch(e.target.value)
+        dispatch(getBreedByName(search))
     }
     
     function onChange(e){

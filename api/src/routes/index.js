@@ -97,7 +97,6 @@ router.get('/dogs', async (req, res, next) => {
 router.get('/dogs/:id', async(req, res, next) => {
     try {
         let { id } = req.params
-        //let verify = parseInt(id)
         if( id.length <= 3 ){
             id = parseInt(id)
             let allBreeds = await axios.get('https://api.thedogapi.com/v1/breeds/')
@@ -111,7 +110,9 @@ router.get('/dogs/:id', async(req, res, next) => {
             allBreeds = {
                     id: allBreeds.id,
                     name: allBreeds.name,
+                    height: allBreeds.height.metric,
                     weight: allBreeds.weight.metric,
+                    lifeSpan: allBreeds.life_span,
                     image: allBreeds.image.url,
                     temperament: allBreeds.temperament
             }

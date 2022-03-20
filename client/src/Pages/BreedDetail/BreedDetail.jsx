@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import styles from './BreedDetail.module.css'
 
-
+import NavBar from '../../Components/NavBar/NavBar.jsx'
 
 
 export default function BreedDetail (){
@@ -13,18 +14,21 @@ export default function BreedDetail (){
         axios.get(`http://localhost:3001/api/dogs/${id}`)
         .then((dog) => {
             setBreed(dog.data)
-            console.log(dog)
         })
     }, [id])
     return (
     <div>
+        <NavBar />
         {
             breed ?
-            <div>
+            <div className={styles.mainDiv}>
                 <h2>{breed.name}</h2>
                 <img src={breed.image} alt='Dog'/>
-                <h4>{`Weight: ${breed.weight}Kg`}</h4>
+                <h4>{`Weight: ${breed.weight} Kg`}</h4>
+                <h4>{`Height: ${breed.height} Cm`}</h4>
+                <h4>{`Life Span: ${breed.lifeSpan}`}</h4>
                 <div>
+                <h4>Temperaments:</h4>
                 {
                     breed.temperament && breed.temperament.map((temp, idx) => {
                         return <div key={idx}>{temp}</div>
