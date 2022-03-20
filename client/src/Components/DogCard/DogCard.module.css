@@ -27,10 +27,7 @@
 .temperaments{
     display: flex;
     justify-content: space-around;
-    /* display: grid;
-    grid-template-columns: 33% 33% 33%; */
-    /* grid-gap: 5px;     */
-    width: fit-content;
+    flex-wrap: wrap;
 }
 
 .temp{
@@ -41,5 +38,4 @@
     padding: 5px;
     margin: 5px;
     margin-top: -5px;
-    width: fit-content;
 }

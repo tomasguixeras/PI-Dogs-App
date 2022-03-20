@@ -21,14 +21,15 @@ export default function Home (){
         <NavBar />
         <SearchBar />
         <div className={styles.cards}>
-            {breeds.map( e => (
-                <Card 
-                    key= {e.id}
-                    image= {e.image}
-                    name= {e.name}
-                    weight= {e.weight}
-                    temperament= {e.temperament}
-             />) )}
+                {breeds.map( e => (
+                    <Card 
+                        key= {e.id}
+                        id= {e.id}
+                        image= {e.image}
+                        name= {e.name}
+                        weight= {e.weight}
+                        temperament= {e.temperament}
+                />) )}
         </div>
 
     </div>

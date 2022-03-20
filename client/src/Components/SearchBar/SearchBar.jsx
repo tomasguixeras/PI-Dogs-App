@@ -1,5 +1,6 @@
 import styles from './SearchBar.module.css'
-import Filter from './Filter'
+import FilterTemp from './FilterTemp'
+import FilterOrigin from './FilterOrigin'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { getBreedByName, sortAlpha, sortWeight } from '../../Redux/Actions'
@@ -32,9 +33,10 @@ export default function SearchBar(){
                     <input type='submit' value="Search" />
                 </form>
             </div>
-            <Filter />
+            <FilterTemp />
+            <FilterOrigin />
             <div>
-                <label for="filter">Sort by:</label>
+                <label htmlFor="filter">Sort by:</label>
                 <select name="filter" onChange={onChange}>
                     <optgroup label="By name:">
                         <option value="A-Z">A-Z</option>

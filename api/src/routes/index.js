@@ -93,16 +93,33 @@ router.get('/dogs', async (req, res, next) => {
 
 // GET CON ID DE LA RAZA X PARAMS
 router.get('/dogs/:id', async(req, res, next) => {
-    let { id } = req.params
-
-    if(typeof id === 'string' && id.length < 3){
-        id = parseInt(id)
-        let allBreeds = await axios.get('https://api.thedogapi.com/v1/breeds/')
-        allBreeds = allBreeds.data
-        return res.send(allBreeds.find( breed => id === breed.id))
-    }else{
-        return Breed.findByPk(id)
-        .then( data => res.send(data) )
+    try {
+        let { id } = req.params
+        let verify = parseInt(id)
+        if(typeof verify === 'number'){
+            id = parseInt(id)
+            let allBreeds = await axios.get('https://api.thedogapi.com/v1/breeds/')
+            allBreeds = allBreeds.data.find( breed => id === breed.id)
+            allBreeds.weight.metric = allBreeds.weight.metric.split(' - ').map( str => parseFloat(str) )
+            if(allBreeds.weight.metric.length>1) allBreeds.weight.metric = (allBreeds.weight.metric[0]+allBreeds.weight.metric[1])/2
+            else allBreeds.weight.metric = allBreeds.weight.metric[0]
+    
+            if(allBreeds.temperament) allBreeds.temperament = allBreeds.temperament.split(', ')  
+        
+            allBreeds = {
+                    id: allBreeds.id,
+                    name: allBreeds.name,
+                    weight: allBreeds.weight.metric,
+                    image: allBreeds.image.url,
+                    temperament: allBreeds.temperament
+            }
+            res.send(allBreeds)
+        }else{
+            return Breed.findByPk(id)
+            .then( data => res.send(data) )
+        }
+    } catch (error) {
+        next(error)
     }
 })
 
@@ -115,20 +132,12 @@ router.get('/temperament', async (req, res, next) => {
         }
         else{
             let allDogs = await axios.get('https://api.thedogapi.com/v1/breeds/')
-            allDogs = allDogs.data
-            let temperament = []
-            for(let i=0; i<allDogs.length; i++){
-                if(allDogs[i].temperament){
-                    temperament.push(allDogs[i].temperament.split(', '))
-                }
-            }
-            let filteredTemp = []
-            for(let i=0; i<temperament.length; i++){
-                temperament[i].forEach( el => filteredTemp.push(el))
-            }
-            let uniq = [...new Set(filteredTemp)];
-            let result = uniq.map( el => el = { name: el })
-            Temperament.bulkCreate(result)
+            allDogs = allDogs.data.map( dog => dog.temperament && dog.temperament.split(', ') )
+            allDogs = allDogs.flat()
+            allDogs = [...new Set(allDogs)];
+            allDogs = allDogs.filter( temp => typeof temp !== 'undefined' )
+            allDogs = allDogs.map( el =>  el = {name:el} )
+            Temperament.bulkCreate(allDogs)
             let searchTemp = await Temperament.findAll()
             res.send(searchTemp)
         }
