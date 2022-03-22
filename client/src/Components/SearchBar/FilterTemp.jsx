@@ -9,6 +9,7 @@ export default function FilterByTemperament(){
     useEffect(()=>{
         dispatch(getTemperaments())
     }, [dispatch])
+
     return (
         <div>
             <label htmlFor="filter">Filter by:</label>
@@ -17,7 +18,7 @@ export default function FilterByTemperament(){
                         temperaments.data ?
                         //console.log(temperaments.data)
                         temperaments.data.map((resp, idx)=>{
-                            return <option value={resp.name.toLowerCase()}key={idx}>{resp.name}</option>
+                            return <option value={resp.name.toLowerCase()}key={idx} >{resp.name}</option>
                         }) : ''
                     }
                 </select>

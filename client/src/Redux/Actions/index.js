@@ -53,7 +53,7 @@ export function getTemperaments(){
 }
 export function addBreed(values){
     return function (){
-        axios.post('')
+        axios.post('http://localhost:3001/api/dog', values)
     }
 }
 export function sortAlpha(alphabeticalOrder){
