@@ -6,6 +6,7 @@ export const ADD_BREED = "ADD_BREED";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
 export const SORT_ALPHA = "SORT_ALPHA";
 export const SORT_WEIGHT = "SORT_WEIGHT"
+export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN";
 
 export function getAllBreeds(){
     return function (dispatch){
@@ -66,5 +67,11 @@ export function sortWeight(numericalOrder){
     return{
         type: SORT_WEIGHT,
         payload: numericalOrder
+    }
+}
+export function filterByOrigin(originFilter){
+    return{
+        type: FILTER_BY_ORIGIN,
+        payload: originFilter
     }
 }

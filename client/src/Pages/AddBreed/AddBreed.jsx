@@ -20,7 +20,7 @@ export default function AddBreed (){
         // let id_temperament = []
         // let value_temperament = []
         const temperament = e.target.value
-        let id = e.target.selectedIndex+1;
+        //let id = e.target.selectedIndex+1;
         // id_temperament.push(id)
         // value_temperament.push(temperament)
         setNewBreed({
