@@ -15,18 +15,18 @@ module.exports = (sequelize) => {
         allowNull: false,
     },
     height: {
-        type: DataTypes.STRING,
+        type: DataTypes.NUMBER,
         allowNull: false
     },
     weight: {
-        type: DataTypes.STRING,
+        type: DataTypes.NUMBER,
         allowNull: false
     },
     lifeSpan: {
-        type: DataTypes.STRING
+        type: DataTypes.NUMBER,
     },
     image: {
-        type: DataTypes.STRING, 
+        type: DataTypes.TEXT, 
         defaultValue: "https://i.pinimg.com/originals/79/70/45/797045541e31863cbf817b4b2306480a.jpg"
     }
   });
