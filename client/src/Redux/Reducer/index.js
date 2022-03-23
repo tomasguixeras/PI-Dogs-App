@@ -52,7 +52,8 @@ export default function rootReducer( state = initialState, action ){
             }
         case FILTER_BY_TEMPERAMENT:
             let filterTemperament = [...state.breeds]
-            filterTemperament = filterTemperament.filter(dog => dog.temperament ? dog.temperament.includes(action.payload) : '')
+            if(action.payload === "allTemperaments") filterTemperament = [...state.breeds]
+            else filterTemperament = filterTemperament.filter(dog => dog.temperament ? dog.temperament.includes(action.payload) : '')
             return {
                 ...state,
                 filteredBreeds: filterTemperament

@@ -14,25 +14,24 @@ export default function AddBreed (props){
     }, [dispatch])
     
     const [ disabled, setDisabled ] = useState( true )
-    const [ newBreed, setNewBreed ] = useState({name: '',
-    imageUrl: '',
-    minHeight: '',
-    maxHeight: '',
-    minWeight: '',
-    maxWeight: '',
-    lifeSpan: '',
-    errors: {
-        name: '',
+    const [ newBreed, setNewBreed ] = useState(
+        {name: '',
         imageUrl: '',
         minHeight: '',
         maxHeight: '',
         minWeight: '',
         maxWeight: '',
-        lifeSpan: ''
-    },
-    //disabled: true
-  })
-    console.log('newBreeds.errors', newBreed)
+        lifeSpan: '',
+        errors: {
+            name: '',
+            imageUrl: '',
+            minHeight: '',
+            maxHeight: '',
+            minWeight: '',
+            maxWeight: '',
+            lifeSpan: ''
+        },
+    })
     // function onSelect(e){
     //     // let id_temperament = []
     //     // let value_temperament = []
@@ -52,29 +51,49 @@ export default function AddBreed (props){
         const { name, value } = e.target;
         let errors = newBreed.errors;
 
-        if( name === 'name') errors.name = value.length < 5 ? 'Nombre debe tener 5 caracteres' : '';
-        if( name === 'imageUrl') errors.imageUrl = value.length < 5 ? 'Apellido debe tener 5 caracteres' : '';
-        if( name === 'minHeight') errors.minHeight = value.length < 5 ? 'Apellido debe tener 5 caracteres' : '';
-        if( name === 'maxHeight') errors.maxHeight = value.length < 5 ? 'Apellido debe tener 5 caracteres' : '';
-        if( name === 'minWeight') errors.minWeight = value.length < 5 ? 'Apellido debe tener 5 caracteres' : '';
-        if( name === 'maxWeight') errors.maxWeight = value.length < 5 ? 'Apellido debe tener 5 caracteres' : '';
-        if( name === 'lifeSpan') errors.lifeSpan = value.length < 5 ? 'Apellido debe tener 5 caracteres' : '';
+        if( name === 'name') {
+            if(!isNaN(parseInt(value))){
+                errors.name = 'The value must be a valid string.'
+            } else delete errors.name
+        }
+        if( name === 'imageUrl') {
+            if(!isNaN(parseInt(value))){
+                errors.imageUrl = 'The value must be a valid url'
+            } else delete errors.imageUrl
+        }
+        if( name === 'minHeight') {
+            if(isNaN(parseInt(value))){
+                errors.minHeight = 'The value must be a number'
+            } else delete errors.minHeight
+        }
+        if( name === 'maxHeight') {
+            if(isNaN(parseInt(value))){
+                errors.maxHeight = 'The value must be a number'
+            } else delete errors.maxHeight
+        }
+        if( name === 'minWeight') {
+            if(isNaN(parseInt(value))){
+                errors.minWeight = 'The value must be a number'
+            } else delete errors.minWeight
+        }
+        if( name === 'maxWeight') {
+            if(isNaN(parseInt(value))){
+                errors.maxWeight = 'The value must be a number'
+            } else delete errors.maxWeight
+        }
+        if( name === 'lifeSpan') {
+            if(isNaN(parseInt(value))){
+                errors.lifeSpan = 'The value must be a number'
+            } else delete errors.lifeSpan
+        }
+
         setNewBreed({
             ...newBreed,
             [name]: value,
-            errors
         });
-        validarForm(errors)
+        Object.keys(errors).length > 0 ? setDisabled( true ) : setDisabled( false )
     }
     
-    function validarForm(errors) {
-        let valid = true;
-
-        Object.values(errors).forEach( resp => resp.length > 0 ? valid = false : valid = true);
-
-        if(valid) setDisabled( false )
-        else setDisabled( true )
-    }
 
     function onSubmit(e){
         e.preventDefault()
@@ -89,20 +108,19 @@ export default function AddBreed (props){
             <h3>Add a Breed:</h3>
             <form className={styles.form} onSubmit={onSubmit}>
                 <input type="text" name='name' placeholder='Name' onChange={handleChange} value={newBreed.name} />
-                {!newBreed.errors.name ? null : <div>{newBreed.errors.name}</div>}
+                    <div>{newBreed.errors.name ? newBreed.errors.name : ''}</div>
                 <input type="text" name='imageUrl' placeholder='Image Url' onChange={handleChange} value={newBreed.imageUrl} />
-                {!newBreed.errors.imageUrl ? null : <div>{newBreed.errors.imageUrl}</div>}
+                    <div>{newBreed.errors.imageUrl ? newBreed.errors.imageUrl : ''}</div>
                 <input type="text" name='minHeight' placeholder='Minimum Height' onChange={handleChange} value={newBreed.minHeight} />
-                {!newBreed.errors.minHeight ? null : <div>{newBreed.errors.minHeight}</div>}
+                    <div>{newBreed.errors.minHeight ? newBreed.errors.minHeight : ''}</div>
                 <input type="text" name='maxHeight' placeholder='Maximum Height' onChange={handleChange} value={newBreed.maxHeight} />
-                {!newBreed.errors.maxHeight ? null : <div>{newBreed.errors.maxHeight}</div>}
+                    <div>{newBreed.errors.maxHeight ? newBreed.errors.maxHeight : ''}</div>
                 <input type="text" name='minWeight' placeholder='Minimum Weight' onChange={handleChange} value={newBreed.minWeight} />
-                {!newBreed.errors.minWeight ? null : <div>{newBreed.errors.minWeight}</div>}
+                    <div>{newBreed.errors.minWeight ? newBreed.errors.minWeight : ''}</div>
                 <input type="text" name='maxWeight' placeholder='Maximun Weight' onChange={handleChange} value={newBreed.maxWeight} />
-                {!newBreed.errors.maxWeight ? null : <div>{newBreed.errors.maxWeight}</div>}
+                    <div>{newBreed.errors.maxWeight ? newBreed.errors.maxWeight : ''}</div>
                 <input type="text" name='lifeSpan' placeholder='Life span' onChange={handleChange} value={newBreed.lifeSpan} />
-                {!newBreed.errors.lifeSpan ? null : <div>{newBreed.errors.lifeSpan}</div>}
-    
+                    <div>{newBreed.errors.lifeSpan ? newBreed.errors.lifeSpan : ''}</div>
                 {/* <div>
                     <label htmlFor="filter">Filter by:</label>
                     <select name="filter" onChange={onSelect} >

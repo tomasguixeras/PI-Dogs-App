@@ -18,6 +18,7 @@ export default function FilterByTemperament(){
         <div>
             <label htmlFor="filter">Filter by:</label>
                 <select name="filter" onChange={onChange} >
+                <option value="allTemperaments" >All Temperaments</option>
                     {
                         temperaments.data ?
                         temperaments.data.map((resp, idx)=>{

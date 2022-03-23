@@ -1,7 +1,7 @@
 import styles from './Home.module.css'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getAllBreeds } from '../../Redux/Actions'
 
 
@@ -16,12 +16,37 @@ export default function Home (){
     useEffect(()=>{
         dispatch(getAllBreeds())
     }, [dispatch])
+
+    const items_per_page = 9
+    const [ items, setItems ] = useState([...breeds].splice(0, items_per_page))
+    const [ currentPage, setCurrentPage ] = useState(0);
+    console.log(breeds)
+    
+    function onPreviousPage(e){
+        const prevPage = currentPage - 1
+        if(prevPage < 0) return
+        const firstIndex = prevPage * items_per_page
+
+        setItems([...breeds].splice(firstIndex, items_per_page))
+        setCurrentPage(prevPage)
+    }
+    function onNextPage(e){
+        const totalElements = breeds.length
+        const nextPage = currentPage + 1
+        const firstIndex = nextPage * items_per_page
+
+        if( firstIndex === totalElements ) return
+
+        setItems([...breeds].splice(firstIndex, items_per_page))
+        setCurrentPage(nextPage)
+
+    }
     return (
     <div>
         <NavBar />
         <SearchBar />
         <div className={styles.cards}>
-                {breeds.map( e => (
+                {items ? items.map( e => (
                     <Card 
                         key= {e.id}
                         id= {e.id}
@@ -29,7 +54,11 @@ export default function Home (){
                         name= {e.name}
                         weight= {e.weight}
                         temperament= {e.temperament}
-                />) )}
+                />) ) : ''}
+        </div>
+        <div>
+            <button onClick={onPreviousPage}>Previous</button>
+            <button onClick={onNextPage}>Next</button>
         </div>
 
     </div>

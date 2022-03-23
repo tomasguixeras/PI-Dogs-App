@@ -44,7 +44,8 @@ router.get('/dogs', async (req, res, next) => {
                     id: dog.id,
                     name: dog.name,
                     weight: dog.weight,
-                    image: dog.image
+                    image: dog.image,
+                    temperament: null // Temperamentos del perro BD
                 }
             })
         let result = [...dogsApi, ...dogsDatabase]
@@ -56,7 +57,7 @@ router.get('/dogs', async (req, res, next) => {
     else {
         try {
             let dogsFromAPI = axios.get('https://api.thedogapi.com/v1/breeds?api_key={API_KEY}')
-            let dogsFromDB = Breed.findAll()
+            let dogsFromDB = Breed.findAll({ include: Temperament})
             Promise.all([dogsFromAPI, dogsFromDB])
             .then ( result => {
             const [ dogsAPI, dogsDB ] = result
@@ -75,12 +76,14 @@ router.get('/dogs', async (req, res, next) => {
                     temperament: temperaments
                 }
             })
+            console.log(dogsDB)
             let filteredDB = dogsDB.map( dog => {
                 return {
                     id: dog.id,
                     name: dog.name,
                     weight: dog.weight,
-                    image: dog.image
+                    image: dog.image,
+                    temperament: dog.temperaments.map( temp => temp.name )
                 }
             })
             let allBreeds = [...filteredDB, ...filteredAPI]
@@ -155,6 +158,7 @@ router.post('/dog', async (req, res, next) => {
     try {
         let height = (parseInt(minHeight) + parseInt(maxHeight))/2
         let weight = (parseInt(minWeight) + parseInt(maxWeight))/2
+        console.log(temperaments)
 
         const newBreed = await Breed.create({
             name,
@@ -163,7 +167,21 @@ router.post('/dog', async (req, res, next) => {
             weight,
             lifeSpan,
         })
-        newBreed.addTemperament(temperaments) // Recibe array con id --> [ 1, 2, 3, 4, 5 ]
+
+        // let prueba = await Temperament.findAll({
+        //     where: {
+        //         id: 1
+        //     }
+        // })
+        // console.log(prueba)
+        let temperamenDB = await Temperament.findAll({
+            where: {
+                name: temperaments
+            }
+        })
+        console.log(temperamenDB)
+
+        newBreed.addTemperament(temperamenDB) // Recibe array con id --> [ 1, 2, 3, 4, 5 ]
 
 
         res.send(newBreed)
