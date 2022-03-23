@@ -14,9 +14,9 @@ export default function DogCard (props){
                 <h4>{`Weight: ${props.weight}Kg`}</h4>
                 <div className={styles.temperaments}>
                 {
-                    props.temperament && props.temperament.map((temp, idx) => {
+                    props.temperament ? props.temperament.map((temp, idx) => {
                         return <div className={styles.temp} key={idx}>{temp}</div>
-                    })
+                    }) : <div className={styles.temp} >No temperaments received.</div>
                 }
                 </div>
         </div>

@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getTemperaments } from "../../Redux/Actions"
-
+import { filterByTemperament, getTemperaments } from "../../Redux/Actions/index.js"
 
 export default function FilterByTemperament(){
     let temperaments = useSelector(state => state.temperaments)
@@ -10,15 +9,19 @@ export default function FilterByTemperament(){
         dispatch(getTemperaments())
     }, [dispatch])
 
+    function onChange(e){
+        let filter = e.target.value
+        dispatch(filterByTemperament(filter))
+    }
+
     return (
         <div>
             <label htmlFor="filter">Filter by:</label>
-                <select name="filter" >
+                <select name="filter" onChange={onChange} >
                     {
                         temperaments.data ?
-                        //console.log(temperaments.data)
                         temperaments.data.map((resp, idx)=>{
-                            return <option value={resp.name.toLowerCase()}key={idx} >{resp.name}</option>
+                            return <option value={resp.name}key={idx} >{resp.name}</option>
                         }) : ''
                     }
                 </select>

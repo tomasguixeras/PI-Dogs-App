@@ -1,4 +1,4 @@
-import { GET_ALL_BREEDS, GET_BREED_DETAIL,GET_BREED_BY_NAME , ADD_BREED, GET_TEMPERAMENTS, SORT_ALPHA, SORT_WEIGHT, FILTER_BY_ORIGIN } from '../Actions/index.js'
+import { GET_ALL_BREEDS, GET_BREED_DETAIL,GET_BREED_BY_NAME , ADD_BREED, GET_TEMPERAMENTS, SORT_ALPHA, SORT_WEIGHT, FILTER_BY_ORIGIN, FILTER_BY_TEMPERAMENT } from '../Actions/index.js'
 
 const initialState = {
     breeds: [],
@@ -49,6 +49,13 @@ export default function rootReducer( state = initialState, action ){
             return {
                 ...state,
                 filteredBreeds: filterOrigin
+            }
+        case FILTER_BY_TEMPERAMENT:
+            let filterTemperament = [...state.breeds]
+            filterTemperament = filterTemperament.filter(dog => dog.temperament ? dog.temperament.includes(action.payload) : '')
+            return {
+                ...state,
+                filteredBreeds: filterTemperament
             }
         //
         case GET_BREED_DETAIL:
