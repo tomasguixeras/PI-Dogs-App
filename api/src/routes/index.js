@@ -45,7 +45,7 @@ router.get('/dogs', async (req, res, next) => {
                     name: dog.name,
                     weight: dog.weight,
                     image: dog.image,
-                    temperament: null // Temperamentos del perro BD
+                    temperament: dog.temperaments.map( temp => temp.name )
                 }
             })
         let result = [...dogsApi, ...dogsDatabase]
@@ -66,17 +66,16 @@ router.get('/dogs', async (req, res, next) => {
                 weight = weight.split(' - ').map( str => parseFloat(str) )
                 if(weight.length>1) weight = (weight[0]+weight[1])/2
                 else weight = weight[0]
-                let temperaments
-                if(dog.temperament) temperaments = dog.temperament.split(', ')
+                let temperament
+                if(dog.temperament) temperament = dog.temperament.split(', ')
                 return{
                     id: dog.id,
                     name: dog.name,
                     weight: weight,
                     image: dog.image.url,
-                    temperament: temperaments
+                    temperament
                 }
             })
-            console.log(dogsDB)
             let filteredDB = dogsDB.map( dog => {
                 return {
                     id: dog.id,
@@ -117,12 +116,25 @@ router.get('/dogs/:id', async(req, res, next) => {
                     weight: allBreeds.weight.metric,
                     lifeSpan: allBreeds.life_span,
                     image: allBreeds.image.url,
-                    temperament: allBreeds.temperament
+                    temperaments: allBreeds.temperament
             }
             res.send(allBreeds)
         }else{
-            return Breed.findByPk(id)
-            .then( data => res.send(data) )
+            let breedFromDB = await Breed.findByPk(id, {
+                include: Temperament
+            })
+            breedFromDB = {
+                id: breedFromDB.id,
+                name: breedFromDB.name,
+                height: breedFromDB.height,
+                weight: breedFromDB.weight,
+                lifeSpan: breedFromDB.lifeSpan,
+                image: breedFromDB.image,
+                temperaments: breedFromDB.temperaments.map( temp => temp.name)
+            }
+            res.send(breedFromDB)
+
+
         }
     } catch (error) {
         next(error)
@@ -167,20 +179,13 @@ router.post('/dog', async (req, res, next) => {
             lifeSpan,
         })
 
-        // let prueba = await Temperament.findAll({
-        //     where: {
-        //         id: 1
-        //     }
-        // })
-        // console.log(prueba)
-        let temperamenDB = await Temperament.findAll({
+        let temperamentDB = await Temperament.findAll({
             where: {
                 name: temperament
             }
         })
-        console.log(temperamenDB)
 
-        newBreed.addTemperament(temperamenDB) // Recibe array con id --> [ 1, 2, 3, 4, 5 ]
+        newBreed.addTemperament(temperamentDB)
 
 
         res.send(newBreed)

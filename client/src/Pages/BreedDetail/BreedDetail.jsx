@@ -32,8 +32,9 @@ export default function BreedDetail (){
                     <h4>{`Life Span: ${breed.lifeSpan}`}</h4>
                     <div>
                     <h4>Temperaments:</h4>
+                    {console.log(breed)}
                     {
-                        breed.temperament && breed.temperament.map((temp, idx) => {
+                        breed.temperaments && breed.temperaments.map((temp, idx) => {
                             return <div key={idx}>{temp}</div>
                         })
                     }
