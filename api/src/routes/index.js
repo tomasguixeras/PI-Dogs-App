@@ -154,11 +154,10 @@ router.get('/temperament', async (req, res, next) => {
 
 // POST DE UNA NUEVA RAZA A LA DATABASE
 router.post('/dog', async (req, res, next) => {
-    const { name, minHeight, maxHeight, minWeight, maxWeight, lifeSpan, imageUrl, temperaments } = req.body
+    const { name, minHeight, maxHeight, minWeight, maxWeight, lifeSpan, imageUrl, temperament } = req.body
     try {
         let height = (parseInt(minHeight) + parseInt(maxHeight))/2
         let weight = (parseInt(minWeight) + parseInt(maxWeight))/2
-        console.log(temperaments)
 
         const newBreed = await Breed.create({
             name,
@@ -176,7 +175,7 @@ router.post('/dog', async (req, res, next) => {
         // console.log(prueba)
         let temperamenDB = await Temperament.findAll({
             where: {
-                name: temperaments
+                name: temperament
             }
         })
         console.log(temperamenDB)

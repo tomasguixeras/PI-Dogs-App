@@ -15,12 +15,12 @@ export default function Home (){
     let dispatch = useDispatch()
     useEffect(()=>{
         dispatch(getAllBreeds())
-    }, [dispatch])
+    }, [] )
 
     const items_per_page = 9
     const [ items, setItems ] = useState([...breeds].splice(0, items_per_page))
     const [ currentPage, setCurrentPage ] = useState(0);
-    console.log(breeds)
+    console.log('Breeds -->',breeds)
     
     function onPreviousPage(e){
         const prevPage = currentPage - 1

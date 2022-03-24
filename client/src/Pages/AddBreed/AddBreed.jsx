@@ -22,6 +22,7 @@ export default function AddBreed (props){
         minWeight: '',
         maxWeight: '',
         lifeSpan: '',
+        temperament: [],
         errors: {
             name: '',
             imageUrl: '',
@@ -29,23 +30,10 @@ export default function AddBreed (props){
             maxHeight: '',
             minWeight: '',
             maxWeight: '',
-            lifeSpan: ''
+            lifeSpan: '',
+            temperament: '',
         },
     })
-    // function onSelect(e){
-    //     // let id_temperament = []
-    //     // let value_temperament = []
-    //     const temperament = e.target.value
-    //     //let id = e.target.selectedIndex+1;
-    //     // id_temperament.push(id)
-    //     // value_temperament.push(temperament)
-    //     setNewBreed({
-    //         ...newBreed,
-    //         //id_temperament : [...newBreed.id_temperament, id],
-    //         value_temperament : [temperament]
-    //     })
-    // }
-    //
     
     function handleChange(e) {
         const { name, value } = e.target;
@@ -86,15 +74,33 @@ export default function AddBreed (props){
                 errors.lifeSpan = 'The value must be a number'
             } else delete errors.lifeSpan
         }
-
+        
         setNewBreed({
             ...newBreed,
-            [name]: value,
+            [name]: value
         });
         Object.keys(errors).length > 0 ? setDisabled( true ) : setDisabled( false )
     }
-    
+    function onSelectChange(e){
+        const { name, value } = e.target;
+        let errors = newBreed.errors;
+        const temperaments = newBreed.temperament
+        temperaments.push(value);
 
+        if( name === 'temperamentSelect') {
+            if( newBreed.temperament.length < 1 ){
+                errors.temperament = 'At list one temperament is required.'
+            } else delete errors.temperament
+        }
+
+        setNewBreed({
+            ...newBreed,
+            temperament: temperaments
+        })
+        Object.keys(errors).length > 0 ? setDisabled( true ) : setDisabled( false )
+    }
+    
+    console.log(newBreed)
     function onSubmit(e){
         e.preventDefault()
         axios.post('http://localhost:3001/api/dog', newBreed)
@@ -121,9 +127,9 @@ export default function AddBreed (props){
                     <div>{newBreed.errors.maxWeight ? newBreed.errors.maxWeight : ''}</div>
                 <input type="text" name='lifeSpan' placeholder='Life span' onChange={handleChange} value={newBreed.lifeSpan} />
                     <div>{newBreed.errors.lifeSpan ? newBreed.errors.lifeSpan : ''}</div>
-                {/* <div>
-                    <label htmlFor="filter">Filter by:</label>
-                    <select name="filter" onChange={onSelect} >
+                <div>
+                    <label htmlFor="filter">Choose Breed Temperaments:</label>
+                    <select name="temperamentSelect" onChange={onSelectChange} >
                         {
                             temperaments.data ?
                             temperaments.data.map((resp, idx)=>{
@@ -133,7 +139,7 @@ export default function AddBreed (props){
                         }
                     </select>
                 </div>
-                {newBreed.value_temperament && newBreed.value_temperament.map( (el, idx) => <span key={idx}>{el}</span>)} */}
+                {newBreed.temperament && newBreed.temperament.map( (el, idx) => <span key={idx}>{el}</span>)}
                 <button type='submit' disabled={disabled} >Add Breed</button>
             </form>
         </div>
