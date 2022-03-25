@@ -86,6 +86,15 @@ router.get('/dogs', async (req, res, next) => {
                 }
             })
             let allBreeds = [...filteredDB, ...filteredAPI]
+            allBreeds.sort((a,b) => {
+                if (a.name > b.name) {
+                    return 1;
+                }
+                if (a.name < b.name) {
+                    return -1;
+                }
+                return 0;
+            })
             res.send(allBreeds)
             })
         } catch (error) {
@@ -157,7 +166,17 @@ router.get('/temperament', async (req, res, next) => {
             allDogs = allDogs.map( el =>  el = {name:el} )
             Temperament.bulkCreate(allDogs)
             let searchTemp = await Temperament.findAll()
-            res.send(searchTemp)
+            console.log(searchTemp)
+            const sortTemp = Array.from(searchTemp).sort((a,b) => {
+                if (a.name > b.name) {
+                    return 1;
+                }
+                if (a.name < b.name) {
+                    return -1;
+                }
+                return 0;
+            })
+            res.send(sortTemp)
         }
     } catch (error) {
         next(error)
