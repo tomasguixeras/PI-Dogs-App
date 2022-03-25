@@ -1,9 +1,13 @@
-
+.mainDiv:hover{
+    background-color: #bbbbb1;
+    box-shadow: 6px 8px 16px 5px rgba(0,0,0,0.74);
+}
 .mainDiv {
     width: 350px;
     height: 450px;
     border: solid #9B9B7A 1px;
     background-color: #cad2c5;
+    box-shadow: 23px 25px 49px -8px rgba(0,0,0,0.74);
     border-radius: 7px;
     margin: 10px;
     padding: 10px;
@@ -12,7 +16,7 @@
     align-items: center;
     text-align: center;
     justify-content: center; 
-    
+    cursor: pointer;
 }
 .mainDiv h2 {
     font-family: monospace, 'Courier New', Courier;
@@ -29,14 +33,6 @@
     width: 300px; */
     border-radius: 7px;
 }
-/* .secondDiv{
-    width: 250px;
-    height: 350px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; 
-} */
 .temperaments{
     max-width: 90%;
     display: flex;

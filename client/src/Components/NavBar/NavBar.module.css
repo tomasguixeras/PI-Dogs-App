@@ -1,7 +1,28 @@
 .mainDiv{
+    margin: -10px 0px 0px -10px;
     background-color: #cad2c5;
     display: flex;
     align-items: center;
     justify-content:space-between; 
     padding: 27px;
+}
+.home{
+    text-decoration: none;
+    color: black;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 20px;
+    font-weight: bold;
+}
+.addBreed{
+    text-decoration: none;
+    color: black;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 15px;
+    border: solid #9B9B7A 2px;
+    border-radius: 7px;
+    padding: 10px;
+}
+.addBreed:hover{
+    box-shadow: 0 0 10px grey;
+    cursor: pointer;
 }

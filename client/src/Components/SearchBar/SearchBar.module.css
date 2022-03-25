@@ -1,16 +1,90 @@
-
 .subNav{
     background-color: #cad2c5;
-    /* border: solid blueviolet 1px; */
+    margin: -10px 0px 0px -10px;
     padding: 15px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
+.inputText{
+    border: 1px solid #9B9B7A;
+    border-radius: 7px;
+    background-color: #B6BFB0;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 13px;
+    margin-left: 57px;
+    width: 200px;
+}
+.submit{
+    border: 1px solid #9B9B7A;
+    border-radius: 7px;
+    background-color: #B6BFB0;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 13px;
+    width: 140px;
+    cursor: pointer;
+}
+.submit:hover{
+    cursor: pointer;
+    box-shadow: 0 0 10px grey
+}
 .searchBar{
     display: flex;
     flex-direction: row;
 }
-#inputText{
-    width: 270px;
+.filters{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.filterO{
+    margin: 2px;
+}
+.filterT{
+    margin: 2px;
+}
+.sort{
+    margin: 2px;
+}
+.labelFilter{
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 13px;
+}
+.selectFilter{
+    padding: 4px;
+    border-radius: 7px;
+    background-color: #B6BFB0;
+    font-size: 12px;
+}
+.selectFilter:hover{
+    cursor: pointer;
+    box-shadow: 0 0 10px grey
+}
+.labelOrigin{
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 13px;
+}
+.selectOrigin{
+    padding: 4px;
+    border-radius: 7px;
+    background-color: #B6BFB0;
+    font-size: 12px;
+}
+.selectOrigin:hover{
+    cursor: pointer;
+    box-shadow: 0 0 10px grey
+}
+.labelSort{
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 12px;
+}
+.selectSort{
+    padding: 4px;
+    border-radius: 7px;
+    background-color: #B6BFB0;
+    font-size: 12px;
+}
+.selectSort:hover{
+    cursor: pointer;
+    box-shadow: 0 0 10px grey
 }

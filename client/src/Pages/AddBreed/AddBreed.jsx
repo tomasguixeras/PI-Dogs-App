@@ -107,10 +107,15 @@ export default function AddBreed (props){
         alert('Breed added successfully')
     }
 
+    function deleteTemperament(){
+        console.log('deleteTemperament')
+    }
+
     return (
     <div>
         <NavBar />
-        <div className={styles.form}>
+        <div className={styles.mainDiv}>
+        <div className={styles.mainForm}>
             <h3>Add a Breed:</h3>
             <form className={styles.form} onSubmit={onSubmit}>
                 <input type="text" name='name' placeholder='Name' onChange={handleChange} value={newBreed.name} />
@@ -127,9 +132,9 @@ export default function AddBreed (props){
                     <div>{newBreed.errors.maxWeight ? newBreed.errors.maxWeight : ''}</div>
                 <input type="text" name='lifeSpan' placeholder='Life span' onChange={handleChange} value={newBreed.lifeSpan} />
                     <div>{newBreed.errors.lifeSpan ? newBreed.errors.lifeSpan : ''}</div>
-                <div>
-                    <label htmlFor="filter">Choose Breed Temperaments:</label>
-                    <select name="temperamentSelect" onChange={onSelectChange} >
+                <div className={styles.labelInput} >
+                    <label htmlFor="filter" className={styles.labelTemp}>Choose Breed Temperaments:</label>
+                    <select name="temperamentSelect" onChange={onSelectChange} className={styles.selectTemp} >
                         {
                             temperaments.data ?
                             temperaments.data.map((resp, idx)=>{
@@ -139,9 +144,16 @@ export default function AddBreed (props){
                         }
                     </select>
                 </div>
-                {newBreed.temperament && newBreed.temperament.map( (el, idx) => <span key={idx}>{el}</span>)}
-                <button type='submit' disabled={disabled} >Add Breed</button>
+                <div className={styles.selected} >
+                    {newBreed.temperament && newBreed.temperament.map( (el, idx) => (
+                    <div className={styles.selDiv}>
+                        <span key={idx} >{el}</span>
+                        <button Type='button' onClick={deleteTemperament} className={styles.deleteTemp}>X</button>
+                    </div>))}
+                </div>
+                <button type='submit' disabled={disabled} className={styles.submit}>Add Breed</button>
             </form>
+        </div>
         </div>
     </div>
     )

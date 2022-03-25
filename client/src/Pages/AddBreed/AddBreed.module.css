@@ -1,14 +1,93 @@
-.form{
-    width: 100%;
+.mainDiv{
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: solid 2px blue;
+}
+.mainForm{
+    width: 90%;
+    height: 80vh;
+    border: solid 2px #9B9B7A;
+    background-color: #cad2c5;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 7px;
+    margin: 17px;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    width: 87%;
+}
+.mainForm h3{
+    color: black;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+}
+.labelInput{
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+.labelTemp{
     margin: 7px;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 13px;
+}
+.selectTemp{
+    margin: 7px;
+    padding: 7px;
+    width: 57%;
+    background-color: #B6BFB0;
+    border: 1px solid #9B9B7A;
+    border-radius: 7px;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 13px;
+}
+.selectTemp:hover{
+    cursor: pointer;
+    box-shadow: 0 0 10px grey
+}
+.selected{
+    display: flex;
+    flex-wrap: wrap;
+}
+.selDiv{
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    border: 1px solid #9B9B7A;
+    border-radius: 7px;
+    padding: 7px;
+}
+.deleteTemp{
+    font-size: 7px
 }
 input{
     margin: 7px;
     padding: 7px;
     width: 80%;
+    background-color: #B6BFB0;
+    border: 1px solid #9B9B7A;
+    border-radius: 7px;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 13px;
+}
+.submit{
+    position: absolute;
+    bottom: 47px;
+    padding: 10px;
+    background-color: #B6BFB0;
+    font-size: 12px;
+    border: 1px solid #9B9B7A;
+    border-radius: 7px;
+}
+.submit:hover{
+    cursor: pointer;
+    box-shadow: 0 0 10px grey
 }

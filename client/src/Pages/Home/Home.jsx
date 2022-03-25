@@ -8,6 +8,7 @@ import { getAllBreeds } from '../../Redux/Actions'
 import NavBar from '../../Components/NavBar/NavBar.jsx'
 import SearchBar from '../../Components/SearchBar/SearchBar.jsx'
 import Card from '../../Components/DogCard/DogCard.jsx'
+import PaginationButtons from '../../Components/PaginationButtons/PaginationButtons.jsx'
 
 
 export default function Home (){
@@ -15,38 +16,51 @@ export default function Home (){
     let dispatch = useDispatch()
     useEffect(()=>{
         dispatch(getAllBreeds())
-    }, [] )
+    }, [dispatch] )
 
-    const items_per_page = 9
-    const [ items, setItems ] = useState([...breeds].splice(0, items_per_page))
-    const [ currentPage, setCurrentPage ] = useState(0);
-    console.log('Breeds -->',breeds)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(9);
+
+    // Get current posts
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = breeds.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+    // const items_per_page = 9
+    // const [ items, setItems ] = useState([...breeds].splice(0, items_per_page))
+    // const [ currentPage, setCurrentPage ] = useState(0);
+
     
-    function onPreviousPage(e){
-        const prevPage = currentPage - 1
-        if(prevPage < 0) return
-        const firstIndex = prevPage * items_per_page
+    // function onPreviousPage(e){
+    //     const prevPage = currentPage - 1
+    //     if(prevPage < 0) return
+    //     const firstIndex = prevPage * items_per_page
 
-        setItems([...breeds].splice(firstIndex, items_per_page))
-        setCurrentPage(prevPage)
-    }
-    function onNextPage(e){
-        const totalElements = breeds.length
-        const nextPage = currentPage + 1
-        const firstIndex = nextPage * items_per_page
+    //     setItems([...breeds].splice(firstIndex, items_per_page))
+    //     setCurrentPage(prevPage)
+    // }
+    // function onNextPage(e){
+    //     const totalElements = breeds.length
+    //     const nextPage = currentPage + 1
+    //     const firstIndex = nextPage * items_per_page
 
-        if( firstIndex === totalElements ) return
+    //     if( firstIndex === totalElements ) return
 
-        setItems([...breeds].splice(firstIndex, items_per_page))
-        setCurrentPage(nextPage)
+    //     setItems([...breeds].splice(firstIndex, items_per_page))
+    //     setCurrentPage(nextPage)
 
-    }
+    // }
     return (
     <div>
-        <NavBar />
-        <SearchBar />
-        <div className={styles.cards}>
-                {items ? items.map( e => (
+        <div className={styles.fullNavbar} >
+            <NavBar />
+            <SearchBar />
+        </div>
+        <div className={styles.bodyCards}>
+            <div className={styles.cards}>
+                {currentPosts ? currentPosts.map( e => (
                     <Card 
                         key= {e.id}
                         id= {e.id}
@@ -55,12 +69,13 @@ export default function Home (){
                         weight= {e.weight}
                         temperament= {e.temperament}
                 />) ) : ''}
+            </div>
+            < PaginationButtons 
+                postsPerPage={postsPerPage}
+                totalPosts={breeds.length}
+                paginate={paginate}
+            />
         </div>
-        <div>
-            <button onClick={onPreviousPage}>Previous</button>
-            <button onClick={onNextPage}>Next</button>
-        </div>
-
     </div>
     )
 }
