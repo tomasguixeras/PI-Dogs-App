@@ -1,10 +1,18 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 .mainDiv{
     display: flex;
     justify-content:space-around;
-    border: solid 1px blue;
-    border-radius: 7px;
-    width: 87%;
-    height: auto;
+    background-color: #cad2c5;
+    border: solid 2px #9B9B7A;
+    box-shadow: 0 0 10px grey;
+    border-radius: 17px;
+    width: 170vh;
+    height: 75vh;
     padding: 20px;
     margin: 20px;
 }
@@ -13,15 +21,91 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 50%;
+    width: 85vh;
+}
+.leftDiv h2{
+    color: black;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 25px;
+    font-weight: bold;
+    padding: 7px;
 }
 .leftDiv img {
-    max-width: 90%;
+    max-width: 80vh;
+    max-height: 60vh;
+    border-radius: 17px;
 }
 .rightDiv{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
-    max-width: 50%;
+    width: 85vh;
+}
+.rightDiv h4{
+    color: black;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 20px;
+    font-style: italic;
+    padding: 7px;
+}
+.fullTemp{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.fullTemp h4{
+    margin-bottom: -5px;
+}
+.temperaments{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+.temp{
+    text-align: center;
+    background-color: #cad2c5;
+    border: solid 1px #9B9B7A;
+    border-radius: 7px;
+    margin: 10px;
+    padding: 7px;
+}
+.rightTopDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+}
+.lifeSpan1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.lifeSpan2{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+span{
+    color: black;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 18px;
+}
+.height{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.height h4{
+    margin-bottom: -5px;
+}
+.weight{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.weight h4{
+    margin-bottom: -5px;
 }

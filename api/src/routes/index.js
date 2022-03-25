@@ -45,7 +45,7 @@ router.get('/dogs', async (req, res, next) => {
                     name: dog.name,
                     weight: dog.weight,
                     image: dog.image,
-                    temperament: dog.temperaments.map( temp => temp.name )
+                    temperament: dog.temperament ? dog.temperaments.map( temp => temp.name ) : ''
                 }
             })
         let result = [...dogsApi, ...dogsDatabase]

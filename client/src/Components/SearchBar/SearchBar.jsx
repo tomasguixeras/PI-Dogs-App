@@ -31,7 +31,7 @@ export default function SearchBar(){
         <div className={styles.subNav}>
             <div>
                 <form onSubmit={onSubmit} className={styles.searchBar}>
-                    <input type='text' onChange={onImputChange} value={search}  className={styles.inputText} />
+                    <input type='text' onChange={onImputChange} value={search}  className={styles.inputText} placeholder="Search by breeds name..." />
                     <input type='submit' value="Search" className={styles.submit} />
                 </form>
             </div>

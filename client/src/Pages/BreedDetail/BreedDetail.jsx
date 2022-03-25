@@ -19,30 +19,47 @@ export default function BreedDetail (){
     return (
     <div>
         <NavBar />
+        <div className={styles.container}>
         {
             breed ?
             <div className={styles.mainDiv}>
                 <div className={styles.leftDiv}>
-                    <h2>{breed.name}</h2>
-                    <img src={breed.image} alt='Dog'/>
+                    <h2 className={styles.name} >{breed.name}</h2>
+                    <img src={breed.image} alt='Dog' className={styles.image} />
                 </div>
                 <div className={styles.rightDiv}>
-                    <h4>{`Weight: ${breed.weight} Kg`}</h4>
-                    <h4>{`Height: ${breed.height} Cm`}</h4>
-                    <h4>{`Life Span: ${breed.lifeSpan}`}</h4>
-                    <div>
+                    <div className={styles.rightTopDiv}>
+                        <div className={styles.weight}>
+                            <h4>Weight:</h4>
+                            <span>{`${breed.weight} Kg`}</span>
+                        </div>
+                        <div className={styles.height} >
+                            <h4>Height:</h4>
+                            <span>{`${breed.height} Cm`}</span>
+                        </div>
+                    </div>
+                    <div className={styles.lifeSpan1}>
+                        <div className={styles.lifeSpan2}>
+                            <h4>Life Span:</h4>
+                            <span>{`${breed.lifeSpan}`}</span>
+                        </div>
+                    </div>
+                    <div className={styles.fullTemp} >
                     <h4>Temperaments:</h4>
+                    <div className={styles.temperaments} >
                     {console.log(breed)}
                     {
                         breed.temperaments && breed.temperaments.map((temp, idx) => {
-                            return <div key={idx}>{temp}</div>
+                            return <div key={idx} className={styles.temp} >{temp}</div>
                         })
                     }
+                    </div>
                     </div>
                 </div>
             </div> : 
             <h3>Loading...</h3>
         }
+        </div>
     </div>
     )
 }

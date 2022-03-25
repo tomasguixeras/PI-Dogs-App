@@ -18,7 +18,7 @@ export default function FilterByTemperament(){
 
     return (
         <div className={styles.filterT}>
-            <label htmlFor="filter" className={styles.labelFilter} >Filter by:</label>
+            <label htmlFor="filter" className={styles.labelFilter} >Filter by Temperament:</label>
                 <select name="filter" onChange={onChange} className={styles.selectFilter} >
                 <option value="allTemperaments" >All Temperaments</option>
                     {
