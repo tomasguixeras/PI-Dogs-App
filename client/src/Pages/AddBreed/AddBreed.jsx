@@ -100,20 +100,22 @@ export default function AddBreed (props){
         Object.keys(errors).length > 0 ? setDisabled( true ) : setDisabled( false )
     }
     
-    console.log(newBreed)
     function onSubmit(e){
         e.preventDefault()
         axios.post('http://localhost:3001/api/dog', newBreed)
         alert('Breed added successfully')
     }
 
-    function deleteTemperament(){
-        console.log('deleteTemperament')
+    function deleteTemperament(e){
+        setNewBreed( {
+            ...newBreed,
+            temperament: newBreed.temperament.filter( temp => temp !== e.target.value)
+        } );
     }
 
     return (
     <div>
-        <NavBar />
+        <NavBar className={styles.navbar} />
         <div className={styles.mainDiv}>
         <div className={styles.mainForm}>
             <h3>Add a Breed:</h3>
@@ -138,7 +140,6 @@ export default function AddBreed (props){
                         {
                             temperaments.data ?
                             temperaments.data.map((resp, idx)=>{
-                                //return console.log(resp.id)
                                 return <option id={resp.id} value={resp.name} key={resp.id} >{resp.name}</option>
                             }) : ''
                         }
@@ -148,7 +149,7 @@ export default function AddBreed (props){
                     {newBreed.temperament && newBreed.temperament.map( (el, idx) => (
                     <div className={styles.selDiv}>
                         <span key={idx} >{el}</span>
-                        <button Type='button' onClick={deleteTemperament} className={styles.deleteTemp}>X</button>
+                        <button type='button' onClick={deleteTemperament} className={styles.deleteTemp} value={el} >X</button>
                     </div>))}
                 </div>
                 <button type='submit' disabled={disabled} className={styles.submit}>Add Breed</button>
