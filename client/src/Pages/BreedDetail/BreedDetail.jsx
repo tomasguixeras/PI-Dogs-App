@@ -4,7 +4,7 @@ import axios from 'axios'
 import styles from './BreedDetail.module.css'
 
 import NavBar from '../../Components/NavBar/NavBar.jsx'
-
+import Loading from '../../Components/Loading/Loading.jsx'
 
 export default function BreedDetail (){
     const [breed, setBreed ] = useState()
@@ -57,7 +57,7 @@ export default function BreedDetail (){
                     </div>
                 </div>
             </div> : 
-            <h3>Loading...</h3>
+            <Loading />
         }
         </div>
     </div>

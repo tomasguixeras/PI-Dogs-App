@@ -6,7 +6,6 @@ import Home from './Pages/Home/Home.jsx'
 import BreedDetail from './Pages/BreedDetail/BreedDetail.jsx'
 import AddBreed from './Pages/AddBreed/AddBreed.jsx'
 
-
 function App() {
   return (
     <BrowserRouter>

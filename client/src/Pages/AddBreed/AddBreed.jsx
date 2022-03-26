@@ -81,6 +81,14 @@ export default function AddBreed (props){
         });
         Object.keys(errors).length > 0 ? setDisabled( true ) : setDisabled( false )
     }
+    function deleteTemperament(e){
+        setNewBreed( {
+            ...newBreed,
+            temperament: newBreed.temperament.filter( temp => temp !== e.target.value)
+        } );
+        newBreed.temperament.length < 0 ? setDisabled( true ) : setDisabled( false )
+    }
+    console.log(newBreed.temperament)
     function onSelectChange(e){
         const { name, value } = e.target;
         let errors = newBreed.errors;
@@ -106,12 +114,6 @@ export default function AddBreed (props){
         alert('Breed added successfully')
     }
 
-    function deleteTemperament(e){
-        setNewBreed( {
-            ...newBreed,
-            temperament: newBreed.temperament.filter( temp => temp !== e.target.value)
-        } );
-    }
 
     return (
     <div>
@@ -149,7 +151,7 @@ export default function AddBreed (props){
                     {newBreed.temperament && newBreed.temperament.map( (el, idx) => (
                     <div className={styles.selDiv}>
                         <span key={idx} >{el}</span>
-                        <button type='button' onClick={deleteTemperament} className={styles.deleteTemp} value={el} >X</button>
+                        <button type='button' onClick={deleteTemperament} className={styles.deleteTemp} name='deleteTemp' value={el} >X</button>
                     </div>))}
                 </div>
                 <button type='submit' disabled={disabled} className={styles.submit}>Add Breed</button>

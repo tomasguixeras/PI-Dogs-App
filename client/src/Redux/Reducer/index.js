@@ -65,9 +65,10 @@ export default function rootReducer( state = initialState, action ){
                 breedDetail: action.payload 
             };
         case GET_BREED_BY_NAME:
+            console.log(action.payload)
             return {
                 ...state, 
-                breeds: action.payload
+                filteredBreeds: action.payload
             };
         case GET_TEMPERAMENTS:
             return {

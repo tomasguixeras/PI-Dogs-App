@@ -8,6 +8,7 @@ import { getAllBreeds } from '../../Redux/Actions'
 import NavBar from '../../Components/NavBar/NavBar.jsx'
 import SearchBar from '../../Components/SearchBar/SearchBar.jsx'
 import Card from '../../Components/DogCard/DogCard.jsx'
+import Loading from '../../Components/Loading/Loading.jsx'
 import PaginationButtons from '../../Components/PaginationButtons/PaginationButtons.jsx'
 
 
@@ -60,7 +61,7 @@ export default function Home (){
         </div>
         <div className={styles.bodyCards}>
             <div className={styles.cards}>
-                {currentPosts ? currentPosts.map( e => (
+                {currentPosts.length > 0 ? currentPosts.map( e => (
                     <Card 
                         key= {e.id}
                         id= {e.id}
@@ -68,7 +69,7 @@ export default function Home (){
                         name= {e.name}
                         weight= {e.weight}
                         temperament= {e.temperament}
-                />) ) : ''}
+                />) ) : <Loading />}
             </div>
             < PaginationButtons 
                 postsPerPage={postsPerPage}

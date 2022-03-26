@@ -6,14 +6,19 @@
     justify-content:space-between; 
     padding: 27px;
 }
-.home{
+.logo{
+    height: 50px;
+    margin-left: 45px;
+    cursor: pointer;
+}
+/* .home{
     margin-left: 50px;
     text-decoration: none;
     color: black;
     font-family: monospace, 'Courier New', Courier;
     font-size: 20px;
     font-weight: bold;
-}
+} */
 .addBreed{
     text-decoration: none;
     color: black;
