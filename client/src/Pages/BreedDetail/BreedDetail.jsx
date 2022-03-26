@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import styles from './BreedDetail.module.css'
@@ -7,6 +7,7 @@ import NavBar from '../../Components/NavBar/NavBar.jsx'
 import Loading from '../../Components/Loading/Loading.jsx'
 
 export default function BreedDetail (){
+    const navigate = useNavigate()
     const [breed, setBreed ] = useState()
     let { id } = useParams()
     
@@ -31,17 +32,15 @@ export default function BreedDetail (){
                     <div className={styles.rightTopDiv}>
                         <div className={styles.weight}>
                             <h4>Weight:</h4>
-                            <span>{`${breed.weight} Kg`}</span>
+                            <span>{`${breed.weight} Kg.`}</span>
                         </div>
                         <div className={styles.height} >
                             <h4>Height:</h4>
-                            <span>{`${breed.height} Cm`}</span>
-                        </div>
-                    </div>
-                    <div className={styles.lifeSpan1}>
+                            <span>{`${breed.height} Cm.`}</span>
+                        </div>                    
                         <div className={styles.lifeSpan2}>
                             <h4>Life Span:</h4>
-                            <span>{`${breed.lifeSpan}`}</span>
+                            <span>{`${breed.lifeSpan} years.`}</span>
                         </div>
                     </div>
                     <div className={styles.fullTemp} >
@@ -55,6 +54,7 @@ export default function BreedDetail (){
                     }
                     </div>
                     </div>
+                    <button type='button' onClick={() => navigate('/home')}>Back</button>
                 </div>
             </div> : 
             <Loading />

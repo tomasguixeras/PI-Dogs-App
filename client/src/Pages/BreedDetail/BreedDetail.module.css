@@ -84,9 +84,12 @@
 }
 .lifeSpan2{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
 
+}
+.lifeSpan2 h4{
+    margin-bottom: -5px;
 }
 span{
     color: black;
@@ -108,4 +111,21 @@ span{
 }
 .weight h4{
     margin-bottom: -5px;
+}
+button{
+    background-color: #cad2c5;
+    position: absolute;
+    right: 100px;
+    bottom: 70px;
+    color: black;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 15px;
+    border: solid #9B9B7A 2px;
+    border-radius: 7px;
+    padding: 10px;
+}
+
+button:hover{
+    box-shadow: 0 0 10px grey;
+    cursor: pointer;
 }
