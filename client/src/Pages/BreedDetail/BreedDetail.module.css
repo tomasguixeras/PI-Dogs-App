@@ -112,7 +112,7 @@ span{
 .weight h4{
     margin-bottom: -5px;
 }
-button{
+.backHome{
     background-color: #cad2c5;
     position: absolute;
     right: 100px;
@@ -125,7 +125,7 @@ button{
     padding: 10px;
 }
 
-button:hover{
+.backHome:hover{
     box-shadow: 0 0 10px grey;
     cursor: pointer;
 }

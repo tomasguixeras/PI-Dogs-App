@@ -54,7 +54,7 @@ export default function BreedDetail (){
                     }
                     </div>
                     </div>
-                    <button type='button' onClick={() => navigate('/home')}>Back</button>
+                    <button type='button' onClick={() => navigate('/home')} className={styles.backHome} >Back</button>
                 </div>
             </div> : 
             <Loading />
