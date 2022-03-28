@@ -17,6 +17,7 @@ export default function AddBreed (){
     const [ disabled, setDisabled ] = useState( true )
     const [ newBreed, setNewBreed ] = useState(
         {name: '',
+        imageUrl: '',
         minHeight: '',
         maxHeight: '',
         minWeight: '',
@@ -39,7 +40,7 @@ export default function AddBreed (){
         let errors = newBreed.errors;
 
         if( name === 'name') {
-            if(!isNaN(parseInt(value))){
+            if( !isNaN(value) || value.trim().length === 0 ){
                 errors.name = 'The value must be a valid string.'
             } else delete errors.name
         }
@@ -73,16 +74,29 @@ export default function AddBreed (){
             ...newBreed,
             [name]: value
         });
-        Object.keys(errors).length > 0 ? setDisabled( true ) : setDisabled( false )
+        validation();
+        // Object.keys(errors).length > 0 ? setDisabled( true ) : setDisabled( false )
     }
     function deleteTemperament(e){
+        const { name, value } = e.target
         setNewBreed( {
             ...newBreed,
-            temperament: newBreed.temperament.filter( temp => temp !== e.target.value)
+            temperament: newBreed.temperament.filter( temp => temp !== value)
         } );
-        newBreed.temperament.length === 0 && setNewBreed( newBreed.errors.temperament = 'At list one temperament is required.' )
-        console.log(newBreed.temperament)
+        // if( name === 'deleteTemp') {
+        //     if( newBreed.temperament.length < 1 ){
+        //         newBreed.errors.temperament = 'At list one temperament is required.'
+        //     } else delete newBreed.errors.temperament
+        // }
+        validation();
+        //newBreed.temperament.length === 0 && setNewBreed( newBreed.errors.temperament = 'At list one temperament is required.' )
     }
+    useEffect(()=>{
+        if( newBreed.temperament.length < 1 ){
+            newBreed.errors.temperament = 'At list one temperament is required.'
+        } else delete newBreed.errors.temperament
+        validation();
+    }, [newBreed, validation])
     function onSelectChange(e){
         const { name, value } = e.target;
         let errors = newBreed.errors;
@@ -94,14 +108,17 @@ export default function AddBreed (){
                 errors.temperament = 'At list one temperament is required.'
             } else delete errors.temperament
         }
-
         setNewBreed({
             ...newBreed,
             temperament: temperaments
         })
-        Object.keys(errors).length > 0 ? setDisabled( true ) : setDisabled( false )
+        validation();
+        //Object.keys(errors).length > 0 ? setDisabled( true ) : setDisabled( false )
     }
-    
+    function validation (){
+        Object.keys(newBreed.errors).length > 0 ? setDisabled( true ) : setDisabled( false )
+        console.log("newBreed --> ", newBreed)
+    }
     function onSubmit(e){
         e.preventDefault()
         axios.post('http://localhost:3001/api/dog', newBreed)
@@ -144,8 +161,8 @@ export default function AddBreed (){
                 </div>
                 <div className={styles.selected} >
                     {newBreed.temperament && newBreed.temperament.map( (el, idx) => (
-                    <div className={styles.selDiv}>
-                        <span key={idx} >{el}</span>
+                    <div className={styles.selDiv} key={idx} >
+                        <span >{el}</span>
                         <button type='button' onClick={deleteTemperament} className={styles.deleteTemp} name='deleteTemp' value={el} >X</button>
                     </div>))}
                 </div>

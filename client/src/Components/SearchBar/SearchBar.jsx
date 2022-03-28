@@ -1,6 +1,6 @@
 import FilterTemp from './FilterTemp'
 import FilterOrigin from './FilterOrigin'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { getBreedByName, sortAlpha, sortWeight } from '../../Redux/Actions'
 
@@ -15,13 +15,15 @@ export default function SearchBar(){
         dispatch(getBreedByName(search))
     }
 
-    function onImputChange(newValue){
-        //e.preventDefault()
-        //const newValue = e.target.value
-        setSearch(newValue)
-        dispatch(getBreedByName(search))
+    function onImputChange(e){
+        e.preventDefault()
+        setSearch(e.target.value)
     }
     
+    useEffect(() => {
+        dispatch(getBreedByName(search))
+    }, [dispatch, search])
+        
     function onChange(e){
         let sort = e.target.value
         if(sort==="A-Z" || sort==="Z-A") dispatch(sortAlpha(sort))
@@ -32,7 +34,7 @@ export default function SearchBar(){
         <div className={styles.subNav}>
             <div>
                 <form onSubmit={onSubmit} className={styles.searchBar}>
-                    <input type='text' onChange={ (e) => onImputChange(e.target.value) } value={search}  className={styles.inputText} placeholder="Search by breeds name..." />
+                    <input type='text' onChange={ onImputChange } value={search}  className={styles.inputText} placeholder="Search by breeds name..." />
                     <input type='submit' value="Search" className={styles.submit} />
                 </form>
             </div>

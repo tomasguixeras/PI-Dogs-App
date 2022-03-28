@@ -195,7 +195,6 @@ router.get('/temperament', async (req, res, next) => {
             allDogs = allDogs.map( el =>  el = {name:el} )
             Temperament.bulkCreate(allDogs)
             let searchTemp = await Temperament.findAll()
-            console.log(searchTemp)
             const sortTemp = Array.from(searchTemp).sort((a,b) => {
                 if (a.name > b.name) {
                     return 1;

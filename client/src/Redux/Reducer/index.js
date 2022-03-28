@@ -40,7 +40,7 @@ export default function rootReducer( state = initialState, action ){
                 filteredBreeds: orderedByWeight
             };
         case FILTER_BY_ORIGIN:
-            let filterOrigin = [...state.breeds]
+            let filterOrigin = [...state.filteredBreeds]
             let fromDB = filterOrigin.filter( el => typeof el.id === 'string')
             let fromAPI = filterOrigin.filter( el => typeof el.id === 'number')
             if(action.payload === "existing") filterOrigin = fromAPI;
