@@ -3,10 +3,11 @@ import NavBar from '../../Components/NavBar/NavBar.jsx'
 import { getTemperaments } from "../../Redux/Actions"
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 export default function AddBreed (){
-    
+    const navigate = useNavigate();
     let temperaments = useSelector(state => state.temperaments)
     let dispatch = useDispatch()
     useEffect(()=>{
@@ -16,7 +17,6 @@ export default function AddBreed (){
     const [ disabled, setDisabled ] = useState( true )
     const [ newBreed, setNewBreed ] = useState(
         {name: '',
-        // imageUrl: null,
         minHeight: '',
         maxHeight: '',
         minWeight: '',
@@ -25,7 +25,6 @@ export default function AddBreed (){
         temperament: [],
         errors: {
             name: '',
-            // imageUrl: '',
             minHeight: '',
             maxHeight: '',
             minWeight: '',
@@ -44,19 +43,14 @@ export default function AddBreed (){
                 errors.name = 'The value must be a valid string.'
             } else delete errors.name
         }
-        // if( name === 'imageUrl') {
-        //     if(!isNaN(parseInt(value))){
-        //         errors.imageUrl = 'The value must be a valid url'
-        //     } else delete errors.imageUrl
-        // }
         if( name === 'minHeight') {
             if(isNaN(parseInt(value))){
-                errors.minHeight = 'The value must be a number'
+                errors.minHeight = 'The value must be a number.'
             } else delete errors.minHeight
         }
         if( name === 'maxHeight') {
-            if(isNaN(parseInt(value))){
-                errors.maxHeight = 'The value must be a number'
+            if( isNaN(parseInt(value)) || parseFloat(value) <= parseFloat(newBreed.minHeight) ){
+                errors.maxHeight = 'The value must be a number and greater than minimun height'
             } else delete errors.maxHeight
         }
         if( name === 'minWeight') {
@@ -65,8 +59,8 @@ export default function AddBreed (){
             } else delete errors.minWeight
         }
         if( name === 'maxWeight') {
-            if(isNaN(parseInt(value))){
-                errors.maxWeight = 'The value must be a number'
+            if( isNaN(parseInt(value)) || parseFloat(value) <= parseFloat(newBreed.minWeight) ){
+                errors.maxWeight = 'The value must be a number and greater than minimun weight'
             } else delete errors.maxWeight
         }
         if( name === 'lifeSpan') {
@@ -86,7 +80,8 @@ export default function AddBreed (){
             ...newBreed,
             temperament: newBreed.temperament.filter( temp => temp !== e.target.value)
         } );
-        newBreed.temperament.length < 0 ? setDisabled( true ) : setDisabled( false )
+        newBreed.temperament.length === 0 && setNewBreed( newBreed.errors.temperament = 'At list one temperament is required.' )
+        console.log(newBreed.temperament)
     }
     function onSelectChange(e){
         const { name, value } = e.target;
@@ -111,6 +106,7 @@ export default function AddBreed (){
         e.preventDefault()
         axios.post('http://localhost:3001/api/dog', newBreed)
         alert('Breed added successfully')
+        navigate('/home')
     }
 
 

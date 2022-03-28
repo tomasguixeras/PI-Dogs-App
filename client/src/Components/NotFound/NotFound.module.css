@@ -1,0 +1,22 @@
+.mainDiv{
+    margin: 0vh;
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+.secondaryDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.secondaryDiv h2{
+    color: black;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 20px;
+}
+.secondaryDiv img{
+    width: 200px;
+}

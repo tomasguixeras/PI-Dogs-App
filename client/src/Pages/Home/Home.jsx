@@ -9,11 +9,13 @@ import NavBar from '../../Components/NavBar/NavBar.jsx'
 import SearchBar from '../../Components/SearchBar/SearchBar.jsx'
 import Card from '../../Components/DogCard/DogCard.jsx'
 import Loading from '../../Components/Loading/Loading.jsx'
+import NotFound from '../../Components/NotFound/NotFound.jsx'
 import PaginationButtons from '../../Components/PaginationButtons/PaginationButtons.jsx'
 
 
 export default function Home (){
     let breeds = useSelector(state => state.filteredBreeds)
+    console.log('breeds -->', breeds)
     let dispatch = useDispatch()
     useEffect(()=>{
         dispatch(getAllBreeds())
@@ -61,6 +63,7 @@ export default function Home (){
         </div>
         <div className={styles.bodyCards}>
             <div className={styles.cards}>
+                {console.log('CurrentPosts --> ',currentPosts)}
                 {currentPosts.length > 0 ? currentPosts.map( e => (
                     <Card 
                         key= {e.id}

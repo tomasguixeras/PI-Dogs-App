@@ -19,8 +19,8 @@ export default function rootReducer( state = initialState, action ){
         case SORT_ALPHA:
             let orderedByName = [...state.filteredBreeds]
             orderedByName.sort((a,b) => {
-                if(a.name<b.name) return action.payload === "A-Z" ? -1 : 1
-                if(a.name>b.name) return action.payload === "A-Z" ? 1 : -1
+                if( a.name.toLowerCase() < b.name.toLowerCase() ) return action.payload === "A-Z" ? -1 : 1
+                if( a.name.toLowerCase() > b.name.toLowerCase() ) return action.payload === "A-Z" ? 1 : -1
                 return 0
             })
             return{

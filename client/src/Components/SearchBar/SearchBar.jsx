@@ -15,9 +15,10 @@ export default function SearchBar(){
         dispatch(getBreedByName(search))
     }
 
-    function onImputChange(e){
-        e.preventDefault()
-        setSearch(e.target.value)
+    function onImputChange(newValue){
+        //e.preventDefault()
+        //const newValue = e.target.value
+        setSearch(newValue)
         dispatch(getBreedByName(search))
     }
     
@@ -31,7 +32,7 @@ export default function SearchBar(){
         <div className={styles.subNav}>
             <div>
                 <form onSubmit={onSubmit} className={styles.searchBar}>
-                    <input type='text' onChange={onImputChange} value={search}  className={styles.inputText} placeholder="Search by breeds name..." />
+                    <input type='text' onChange={ (e) => onImputChange(e.target.value) } value={search}  className={styles.inputText} placeholder="Search by breeds name..." />
                     <input type='submit' value="Search" className={styles.submit} />
                 </form>
             </div>
