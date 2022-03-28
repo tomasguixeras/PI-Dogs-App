@@ -26,8 +26,8 @@ module.exports = (sequelize) => {
         type: DataTypes.DECIMAL(10,2),
     },
     image: {
-        type: DataTypes.TEXT, 
-        defaultValue: "https://i.pinimg.com/originals/79/70/45/797045541e31863cbf817b4b2306480a.jpg"
+        type: DataTypes.STRING, 
+        defaultValue: "https://cdn.icon-icons.com/icons2/1950/PNG/512/free-30-instagram-stories-icons68_122615.png"
     }
   });
 };

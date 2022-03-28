@@ -164,8 +164,8 @@ router.get('/dogs/:id', async(req, res, next) => {
             breedFromDB = {
                 id: breedFromDB.id,
                 name: breedFromDB.name,
-                height: parseInt(breedFromDB.height),
-                weight: parseInt(breedFromDB.weight),
+                height: breedFromDB.height,
+                weight: breedFromDB.weight,
                 lifeSpan: parseInt(breedFromDB.lifeSpan),
                 image: breedFromDB.image,
                 temperaments: breedFromDB.temperaments.map( temp => temp.name)

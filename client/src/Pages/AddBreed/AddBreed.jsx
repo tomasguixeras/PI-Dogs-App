@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import axios from 'axios'
 
-export default function AddBreed (props){
+export default function AddBreed (){
     
     let temperaments = useSelector(state => state.temperaments)
     let dispatch = useDispatch()
@@ -16,7 +16,7 @@ export default function AddBreed (props){
     const [ disabled, setDisabled ] = useState( true )
     const [ newBreed, setNewBreed ] = useState(
         {name: '',
-        imageUrl: '',
+        // imageUrl: null,
         minHeight: '',
         maxHeight: '',
         minWeight: '',
@@ -25,7 +25,7 @@ export default function AddBreed (props){
         temperament: [],
         errors: {
             name: '',
-            imageUrl: '',
+            // imageUrl: '',
             minHeight: '',
             maxHeight: '',
             minWeight: '',
@@ -44,11 +44,11 @@ export default function AddBreed (props){
                 errors.name = 'The value must be a valid string.'
             } else delete errors.name
         }
-        if( name === 'imageUrl') {
-            if(!isNaN(parseInt(value))){
-                errors.imageUrl = 'The value must be a valid url'
-            } else delete errors.imageUrl
-        }
+        // if( name === 'imageUrl') {
+        //     if(!isNaN(parseInt(value))){
+        //         errors.imageUrl = 'The value must be a valid url'
+        //     } else delete errors.imageUrl
+        // }
         if( name === 'minHeight') {
             if(isNaN(parseInt(value))){
                 errors.minHeight = 'The value must be a number'
@@ -88,7 +88,6 @@ export default function AddBreed (props){
         } );
         newBreed.temperament.length < 0 ? setDisabled( true ) : setDisabled( false )
     }
-    console.log(newBreed.temperament)
     function onSelectChange(e){
         const { name, value } = e.target;
         let errors = newBreed.errors;
@@ -125,7 +124,7 @@ export default function AddBreed (props){
                 <input type="text" name='name' placeholder='Name' onChange={handleChange} value={newBreed.name} />
                     <div>{newBreed.errors.name ? newBreed.errors.name : ''}</div>
                 <input type="text" name='imageUrl' placeholder='Image Url' onChange={handleChange} value={newBreed.imageUrl} />
-                    <div>{newBreed.errors.imageUrl ? newBreed.errors.imageUrl : ''}</div>
+                    {/* <div>{newBreed.errors.imageUrl ? newBreed.errors.imageUrl : ''}</div> */}
                 <input type="text" name='minHeight' placeholder='Minimum Height' onChange={handleChange} value={newBreed.minHeight} />
                     <div>{newBreed.errors.minHeight ? newBreed.errors.minHeight : ''}</div>
                 <input type="text" name='maxHeight' placeholder='Maximum Height' onChange={handleChange} value={newBreed.maxHeight} />
