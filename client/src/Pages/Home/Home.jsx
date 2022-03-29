@@ -14,9 +14,10 @@ import PaginationButtons from '../../Components/PaginationButtons/PaginationButt
 
 
 export default function Home (){
-    let breeds = useSelector(state => state.filteredBreeds)
-    console.log('breeds -->', breeds)
     let dispatch = useDispatch()
+    let loading = useSelector(state => state.loading)
+    
+    let breeds = useSelector(state => state.filteredBreeds)
     useEffect(()=>{
         dispatch(getAllBreeds())
     }, [dispatch] )
@@ -63,8 +64,8 @@ export default function Home (){
         </div>
         <div className={styles.bodyCards}>
             <div className={styles.cards}>
-                {console.log('CurrentPosts --> ',currentPosts)}
-                {currentPosts.length > 0 ? currentPosts.map( e => (
+                {loading ? <Loading /> : (
+                    currentPosts.length > 0 ? currentPosts.map( e => (
                     <Card 
                         key= {e.id}
                         id= {e.id}
@@ -72,7 +73,7 @@ export default function Home (){
                         name= {e.name}
                         weight= {e.weight}
                         temperament= {e.temperament}
-                />) ) : <Loading />}
+                />) ) : <NotFound />)}
             </div>
             < PaginationButtons 
                 postsPerPage={postsPerPage}

@@ -125,54 +125,57 @@ router.get('/dogs/:id', async(req, res, next) => {
     try {
         let { id } = req.params
         if( id.length <= 3 ){
-            id = parseInt(id)
-            let allBreeds = await axios.get('https://api.thedogapi.com/v1/breeds/')
-            allBreeds = allBreeds.data.find( breed => id === breed.id)
-
-            // Weight transform to average
-            allBreeds.weight.metric = allBreeds.weight.metric.split(' - ').map( str => parseFloat(str) )
-            if(allBreeds.weight.metric.length>1) allBreeds.weight.metric = parseInt((allBreeds.weight.metric[0]+allBreeds.weight.metric[1])/2)
-            else allBreeds.weight.metric = allBreeds.weight.metric[0]
-            
-            // Height transform to average
-            allBreeds.height.metric = allBreeds.height.metric.split(' - ').map( str => parseFloat(str) )
-            if(allBreeds.height.metric.length>1) allBreeds.height.metric = parseInt((allBreeds.height.metric[0]+allBreeds.height.metric[1])/2)
-            else allBreeds.height.metric = allBreeds.height.metric[0]
-
-            // lifeSpan transform to average
-            allBreeds.life_span = allBreeds.life_span.split(' - ').map( str => parseFloat(str) )
-            allBreeds.life_span = parseInt((allBreeds.life_span[0]+allBreeds.life_span[1])/2)
-
-            // Temperament transform to array
-            if(allBreeds.temperament) allBreeds.temperament = allBreeds.temperament.split(', ')  
+                id = parseInt(id)
+                let allBreeds = await axios.get('https://api.thedogapi.com/v1/breeds/')
+                allBreeds = allBreeds.data.find( breed => id === breed.id)
+                
+                if(allBreeds !== undefined){
+                    // Weight transform to average
+                    allBreeds.weight.metric = allBreeds.weight.metric.split(' - ').map( str => parseFloat(str) )
+                    if(allBreeds.weight.metric.length>1) allBreeds.weight.metric = parseInt((allBreeds.weight.metric[0]+allBreeds.weight.metric[1])/2)
+                    else allBreeds.weight.metric = allBreeds.weight.metric[0]
+                    
+                    // Height transform to average
+                    allBreeds.height.metric = allBreeds.height.metric.split(' - ').map( str => parseFloat(str) )
+                    if(allBreeds.height.metric.length>1) allBreeds.height.metric = parseInt((allBreeds.height.metric[0]+allBreeds.height.metric[1])/2)
+                    else allBreeds.height.metric = allBreeds.height.metric[0]
         
-
-            allBreeds = {
-                    id: allBreeds.id,
-                    name: allBreeds.name,
-                    height: allBreeds.height.metric,
-                    weight: allBreeds.weight.metric,
-                    lifeSpan: allBreeds.life_span,
-                    image: allBreeds.image.url,
-                    temperaments: allBreeds.temperament
-            }
-            res.send(allBreeds)
-        }else{
-            let breedFromDB = await Breed.findByPk(id, {
-                include: Temperament
-            })
-            breedFromDB = {
-                id: breedFromDB.id,
-                name: breedFromDB.name,
-                height: breedFromDB.height,
-                weight: breedFromDB.weight,
-                lifeSpan: parseInt(breedFromDB.lifeSpan),
-                image: breedFromDB.image,
-                temperaments: breedFromDB.temperaments.map( temp => temp.name)
-            }
-            res.send(breedFromDB)
-
-
+                    // lifeSpan transform to average
+                    allBreeds.life_span = allBreeds.life_span.split(' - ').map( str => parseFloat(str) )
+                    allBreeds.life_span = parseInt((allBreeds.life_span[0]+allBreeds.life_span[1])/2)
+        
+                    // Temperament transform to array
+                    if(allBreeds.temperament) allBreeds.temperament = allBreeds.temperament.split(', ')  
+                
+        
+                    allBreeds = {
+                            id: allBreeds.id,
+                            name: allBreeds.name,
+                            height: allBreeds.height.metric,
+                            weight: allBreeds.weight.metric,
+                            lifeSpan: allBreeds.life_span,
+                            image: allBreeds.image.url,
+                            temperaments: allBreeds.temperament
+                    }
+                    res.send(allBreeds)
+                }else res.send({error: 'Invalid id'})
+        }
+        else{
+            if(id.includes('-')){
+                let breedFromDB = await Breed.findByPk(id, {
+                    include: Temperament
+                })
+                breedFromDB = {
+                    id: breedFromDB.id,
+                    name: breedFromDB.name,
+                    height: breedFromDB.height,
+                    weight: breedFromDB.weight,
+                    lifeSpan: parseInt(breedFromDB.lifeSpan),
+                    image: breedFromDB.image,
+                    temperaments: breedFromDB.temperaments.map( temp => temp.name)
+                }
+                res.send(breedFromDB)
+            } else res.send({error: 'Invalid id'})
         }
     } catch (error) {
         next(error)

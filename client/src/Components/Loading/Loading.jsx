@@ -7,7 +7,6 @@ export default function Loading (){
         <div className={styles.secondaryDiv}>
             <img src={image} alt='Dog'/>
             <h2>Loading...</h2>
-            {/* <h2>Breed Not Found</h2> */}
         </div>
     </div>
     )

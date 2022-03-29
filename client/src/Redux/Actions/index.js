@@ -8,9 +8,13 @@ export const SORT_ALPHA = "SORT_ALPHA";
 export const SORT_WEIGHT = "SORT_WEIGHT"
 export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN";
 export const FILTER_BY_TEMPERAMENT = "FILTER_BY_TEMPERAMENT";
+export const LOADING = "LOADING";
 
 export function getAllBreeds(){
     return function (dispatch){
+        dispatch({
+            type: LOADING
+        })
         axios.get('http://localhost:3001/api/dogs')
         .then(data => {
             dispatch({
@@ -22,6 +26,9 @@ export function getAllBreeds(){
 }
 export function getBreedDetail(id){
     return function (dispatch){
+        dispatch({
+            type: LOADING
+        })
         axios.get(`http://localhost:3001/api/dogs/${id}`)
         .then(data => {
             dispatch({
@@ -29,10 +36,19 @@ export function getBreedDetail(id){
                 payload: data
             })
         })
+        // .catch(err => {
+        //     dispatch({
+        //         type: "GET_BREED_DETAIL_ERROR",
+        //         payload: err
+        //     })
+        // })
     }
 }
 export function getBreedByName(name){
     return function (dispatch){
+        dispatch({
+            type: LOADING
+        })
         axios.get(`http://localhost:3001/api/dogs?name=${name}`)
         .then(data => {
             dispatch({

@@ -9,7 +9,7 @@
 }
 .mainForm{
     width: 90%;
-    height: 80vh;
+    height: 83vh;
     border: solid 2px #9B9B7A;
     background-color: #cad2c5;
     border-radius: 7px;
@@ -17,14 +17,22 @@
     flex-direction: column;
     align-items: center;
     padding: 7px;
-    margin: 17px;
+    margin: 7px;
 }
 .form{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px;
+    margin: -8px;
     width: 87%;
+}
+.errorMessage{
+    color: black;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 12px;
+}
+.errorMessage input{
+    padding: 4px;
 }
 .mainForm h3{
     color: black;
@@ -86,8 +94,8 @@
     border: 1.5px solid #9B9B7A;
 }
 input{
-    margin: 7px;
-    padding: 7px;
+    margin: 6px;
+    padding: 6px;
     width: 80%;
     background-color: #B6BFB0;
     border: 1px solid #9B9B7A;
@@ -97,7 +105,7 @@ input{
 }
 .submit{
     position: absolute;
-    bottom: 47px;
+    bottom: 10px;
     padding: 10px;
     background-color: #B6BFB0;
     font-size: 12px;

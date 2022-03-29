@@ -5,6 +5,7 @@ import LandingPage from './Pages/LandingPage/LandingPage.jsx'
 import Home from './Pages/Home/Home.jsx'
 import BreedDetail from './Pages/BreedDetail/BreedDetail.jsx'
 import AddBreed from './Pages/AddBreed/AddBreed.jsx'
+import NotFound from './Components/NotFound/NotFound.jsx';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Route path="/Home" element={<Home />} />
         <Route path="/BreedDetail/:id" element={<BreedDetail />} />
         <Route path="/AddBreed" element={<AddBreed />} />
-        <Route path="/*" element={<div>404 NOT Found</div>} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

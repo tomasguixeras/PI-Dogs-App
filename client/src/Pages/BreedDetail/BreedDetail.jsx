@@ -1,28 +1,35 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 import styles from './BreedDetail.module.css'
+import { getBreedDetail } from '../../Redux/Actions'
 
 import NavBar from '../../Components/NavBar/NavBar.jsx'
 import Loading from '../../Components/Loading/Loading.jsx'
+import NotFound from '../../Components/NotFound/NotFound.jsx'
 
 export default function BreedDetail (){
+    const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [breed, setBreed ] = useState()
+
     let { id } = useParams()
+
+    let loading = useSelector(state => state.loading)
+    let breed = useSelector(state => state.breedDetail.data)
     
-    useEffect(() => {
-        axios.get(`http://localhost:3001/api/dogs/${id}`)
-        .then((dog) => {
-            setBreed(dog.data)
-        })
-    }, [id])
+    useEffect(()=>{
+        dispatch(getBreedDetail(id))
+    }, [dispatch, id] )
+
+    let idExists;
+    if(breed) breed.name ? idExists = true : idExists = false
     return (
     <div>
         <NavBar />
         <div className={styles.container}>
         {
-            breed ?
+            loading ? <Loading /> :(
+                idExists ? 
             <div className={styles.mainDiv}>
                 <div className={styles.leftDiv}>
                     <h2 className={styles.name} >{breed.name}</h2>
@@ -46,7 +53,6 @@ export default function BreedDetail (){
                     <div className={styles.fullTemp} >
                     <h4>Temperaments:</h4>
                     <div className={styles.temperaments} >
-                    {console.log(breed)}
                     {
                         breed.temperaments && breed.temperaments.map((temp, idx) => {
                             return <div key={idx} className={styles.temp} >{temp}</div>
@@ -56,8 +62,8 @@ export default function BreedDetail (){
                     </div>
                     <button type='button' onClick={() => navigate('/home')} className={styles.backHome} >Back</button>
                 </div>
-            </div> : 
-            <Loading />
+            </div> : <NotFound /> )
+            
         }
         </div>
     </div>

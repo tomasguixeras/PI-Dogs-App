@@ -17,7 +17,7 @@ export default function AddBreed (){
     const [ disabled, setDisabled ] = useState( true )
     const [ newBreed, setNewBreed ] = useState(
         {name: '',
-        imageUrl: '',
+        // imageUrl: '',
         minHeight: '',
         maxHeight: '',
         minWeight: '',
@@ -25,13 +25,13 @@ export default function AddBreed (){
         lifeSpan: '',
         temperament: [],
         errors: {
-            name: '',
-            minHeight: '',
-            maxHeight: '',
-            minWeight: '',
-            maxWeight: '',
-            lifeSpan: '',
-            temperament: '',
+            name: '* The value must be a valid string.',
+            minHeight: '* The value must be a number.',
+            maxHeight: '* The value must be a number and greater than minimun height.',
+            minWeight: '* The value must be a number.',
+            maxWeight: '* The value must be a number and greater than minimun weight.',
+            lifeSpan: '* The value must be a number.',
+            temperament: '* At list one temperament is required.',
         },
     })
     
@@ -40,34 +40,22 @@ export default function AddBreed (){
         let errors = newBreed.errors;
 
         if( name === 'name') {
-            if( !isNaN(value) || value.trim().length === 0 ){
-                errors.name = 'The value must be a valid string.'
-            } else delete errors.name
+            ( /^[a-zA-Z\ áéíóúÁÉÍÓÚñÑ\s]*$/.test(value.trim()) && isNaN(value) && value.trim().length > 0 ) ? delete errors.name : errors.name = '* The value must be a valid string.'
         }
         if( name === 'minHeight') {
-            if(isNaN(parseInt(value))){
-                errors.minHeight = 'The value must be a number.'
-            } else delete errors.minHeight
+            ( !isNaN(value) && value.trim().length > 0 ) ? delete errors.minHeight : errors.minHeight = '* The value must be a number.'
         }
         if( name === 'maxHeight') {
-            if( isNaN(parseInt(value)) || parseFloat(value) <= parseFloat(newBreed.minHeight) ){
-                errors.maxHeight = 'The value must be a number and greater than minimun height'
-            } else delete errors.maxHeight
+            ( !isNaN(value) && parseFloat(value) >= parseFloat(newBreed.minHeight) ) ? delete errors.maxHeight : errors.maxHeight = '* The value must be a number and greater than minimun height.'
         }
         if( name === 'minWeight') {
-            if(isNaN(parseInt(value))){
-                errors.minWeight = 'The value must be a number'
-            } else delete errors.minWeight
+            (!isNaN(value)) ? delete errors.minWeight : errors.minWeight = '* The value must be a number.'
         }
         if( name === 'maxWeight') {
-            if( isNaN(parseInt(value)) || parseFloat(value) <= parseFloat(newBreed.minWeight) ){
-                errors.maxWeight = 'The value must be a number and greater than minimun weight'
-            } else delete errors.maxWeight
+            ( !isNaN(value) || parseFloat(value) >= parseFloat(newBreed.minWeight) ) ? delete errors.maxWeight : errors.maxWeight = '* The value must be a number and greater than minimun weight.'
         }
         if( name === 'lifeSpan') {
-            if(isNaN(parseInt(value))){
-                errors.lifeSpan = 'The value must be a number'
-            } else delete errors.lifeSpan
+            (!isNaN(value)) ? delete errors.lifeSpan : errors.lifeSpan = '* The value must be a number.'
         }
         
         setNewBreed({
@@ -75,7 +63,6 @@ export default function AddBreed (){
             [name]: value
         });
         validation();
-        // Object.keys(errors).length > 0 ? setDisabled( true ) : setDisabled( false )
     }
     function deleteTemperament(e){
         const { name, value } = e.target
@@ -101,12 +88,11 @@ export default function AddBreed (){
         const { name, value } = e.target;
         let errors = newBreed.errors;
         const temperaments = newBreed.temperament
-        temperaments.push(value);
+        
+        !temperaments.includes(value) && temperaments.push(value)
 
         if( name === 'temperamentSelect') {
-            if( newBreed.temperament.length < 1 ){
-                errors.temperament = 'At list one temperament is required.'
-            } else delete errors.temperament
+            if( newBreed.temperament.length > 1 ) delete errors.temperament
         }
         setNewBreed({
             ...newBreed,
@@ -135,19 +121,19 @@ export default function AddBreed (){
             <h3>Add a Breed:</h3>
             <form className={styles.form} onSubmit={onSubmit}>
                 <input type="text" name='name' placeholder='Name' onChange={handleChange} value={newBreed.name} />
-                    <div>{newBreed.errors.name ? newBreed.errors.name : ''}</div>
+                    <div className={styles.errorMessage}>{newBreed.errors.name ? newBreed.errors.name : ''}</div>
                 <input type="text" name='imageUrl' placeholder='Image Url' onChange={handleChange} value={newBreed.imageUrl} />
-                    {/* <div>{newBreed.errors.imageUrl ? newBreed.errors.imageUrl : ''}</div> */}
+                    <div className={styles.errorMessage} >{newBreed.imageUrl ? "" : "Insert a valid image url of the breed."}</div>
                 <input type="text" name='minHeight' placeholder='Minimum Height' onChange={handleChange} value={newBreed.minHeight} />
-                    <div>{newBreed.errors.minHeight ? newBreed.errors.minHeight : ''}</div>
+                    <div className={styles.errorMessage} >{newBreed.errors.minHeight ? newBreed.errors.minHeight : ''}</div>
                 <input type="text" name='maxHeight' placeholder='Maximum Height' onChange={handleChange} value={newBreed.maxHeight} />
-                    <div>{newBreed.errors.maxHeight ? newBreed.errors.maxHeight : ''}</div>
+                    <div className={styles.errorMessage} >{newBreed.errors.maxHeight ? newBreed.errors.maxHeight : ''}</div>
                 <input type="text" name='minWeight' placeholder='Minimum Weight' onChange={handleChange} value={newBreed.minWeight} />
-                    <div>{newBreed.errors.minWeight ? newBreed.errors.minWeight : ''}</div>
+                    <div className={styles.errorMessage} >{newBreed.errors.minWeight ? newBreed.errors.minWeight : ''}</div>
                 <input type="text" name='maxWeight' placeholder='Maximun Weight' onChange={handleChange} value={newBreed.maxWeight} />
-                    <div>{newBreed.errors.maxWeight ? newBreed.errors.maxWeight : ''}</div>
+                    <div className={styles.errorMessage} >{newBreed.errors.maxWeight ? newBreed.errors.maxWeight : ''}</div>
                 <input type="text" name='lifeSpan' placeholder='Life span' onChange={handleChange} value={newBreed.lifeSpan} />
-                    <div>{newBreed.errors.lifeSpan ? newBreed.errors.lifeSpan : ''}</div>
+                    <div className={styles.errorMessage} >{newBreed.errors.lifeSpan ? newBreed.errors.lifeSpan : ''}</div>
                 <div className={styles.labelInput} >
                     <label htmlFor="filter" className={styles.labelTemp}>Choose Breed Temperaments:</label>
                     <select name="temperamentSelect" onChange={onSelectChange} className={styles.selectTemp} >

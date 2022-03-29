@@ -1,10 +1,19 @@
-import { GET_ALL_BREEDS, GET_BREED_DETAIL,GET_BREED_BY_NAME , ADD_BREED, GET_TEMPERAMENTS, SORT_ALPHA, SORT_WEIGHT, FILTER_BY_ORIGIN, FILTER_BY_TEMPERAMENT } from '../Actions/index.js'
+import { GET_ALL_BREEDS, 
+    GET_BREED_DETAIL,
+    GET_BREED_BY_NAME,
+    GET_TEMPERAMENTS, 
+    SORT_ALPHA, 
+    SORT_WEIGHT, 
+    FILTER_BY_ORIGIN, 
+    FILTER_BY_TEMPERAMENT, 
+    LOADING } from '../Actions/index.js'
 
 const initialState = {
     breeds: [],
     filteredBreeds: [],
     breedDetail: {},
-    temperaments: []
+    temperaments: [],
+    loading: false,
 }
 
 export default function rootReducer( state = initialState, action ){
@@ -13,9 +22,9 @@ export default function rootReducer( state = initialState, action ){
             return { 
                 ...state, 
                 breeds: action.payload,
-                filteredBreeds: action.payload
+                filteredBreeds: action.payload,
+                loading: false
             };
-        //
         case SORT_ALPHA:
             let orderedByName = [...state.filteredBreeds]
             orderedByName.sort((a,b) => {
@@ -58,28 +67,28 @@ export default function rootReducer( state = initialState, action ){
                 ...state,
                 filteredBreeds: filterTemperament
             }
-        //
         case GET_BREED_DETAIL:
             return { 
                 ...state, 
-                breedDetail: action.payload 
+                breedDetail: action.payload,
+                loading: false
             };
         case GET_BREED_BY_NAME:
-            console.log(action.payload)
             return {
                 ...state, 
-                filteredBreeds: action.payload
+                filteredBreeds: action.payload,
+                loading: false
             };
         case GET_TEMPERAMENTS:
             return {
                 ...state, 
                 temperaments: action.payload
             }
-        case ADD_BREED:
+        case LOADING:
             return {
                 ...state, 
-                breeds: [...state.houses, action.payload]
-            }; // MUCHAS DUDAS!!
+                loading: true
+            }
         default:
             return state
     }

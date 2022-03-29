@@ -11,16 +11,16 @@ const dog = {
   weight: 20
 };
 
-describe('Videogame routes', () => {
+describe('Breed routes', () => {
   before(() => conn.authenticate()
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   }));
   beforeEach(() => Breed.sync({ force: true })
     .then(() => Breed.create(dog)));
-  describe('GET /dogs', () => {
+  describe('GET /api/dogs', () => {
     it('should get 200', () =>
-      agent.get('/dogs').expect(200)
+      agent.get('/api/dogs').expect(200)
     );
   });
 });
