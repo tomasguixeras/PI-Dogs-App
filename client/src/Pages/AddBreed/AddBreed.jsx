@@ -1,15 +1,18 @@
-import styles from './AddBreed.module.css'
-import NavBar from '../../Components/NavBar/NavBar.jsx'
-import { getTemperaments } from "../../Redux/Actions"
-import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import styles from './AddBreed.module.css'
+
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux"
+import { getTemperaments } from "../../Redux/Actions"
+
+import NavBar from '../../Components/NavBar/NavBar.jsx'
 
 export default function AddBreed (){
     const navigate = useNavigate();
-    let temperaments = useSelector(state => state.temperaments)
-    let dispatch = useDispatch()
+    let dispatch = useDispatch();
+
+    let temperaments = useSelector(state => state.temperaments);
     useEffect(()=>{
         dispatch(getTemperaments())
     }, [dispatch])
@@ -17,7 +20,6 @@ export default function AddBreed (){
     const [ disabled, setDisabled ] = useState( true )
     const [ newBreed, setNewBreed ] = useState(
         {name: '',
-        // imageUrl: '',
         minHeight: '',
         maxHeight: '',
         minWeight: '',
@@ -34,7 +36,7 @@ export default function AddBreed (){
             temperament: '* At list one temperament is required.',
         },
     })
-    
+    // HandleChange function for text inputs
     function handleChange(e) {
         const { name, value } = e.target;
         let errors = newBreed.errors;
@@ -46,44 +48,24 @@ export default function AddBreed (){
             ( !isNaN(value) && value.trim().length > 0 ) ? delete errors.minHeight : errors.minHeight = '* The value must be a number.'
         }
         if( name === 'maxHeight') {
-            ( !isNaN(value) && parseFloat(value) > parseFloat(newBreed.minHeight) ) ? delete errors.maxHeight : errors.maxHeight = '* The value must be a number and greater than minimun height.'
+            ( !isNaN(value) && parseFloat(value) > parseFloat(newBreed.minHeight) && value.trim().length > 0 ) ? delete errors.maxHeight : errors.maxHeight = '* The value must be a number and greater than minimun height.'
         }
         if( name === 'minWeight') {
-            (!isNaN(value)) ? delete errors.minWeight : errors.minWeight = '* The value must be a number.'
+            ( !isNaN(value) && value.trim().length > 0 ) ? delete errors.minWeight : errors.minWeight = '* The value must be a number.'
         }
         if( name === 'maxWeight') {
-            ( !isNaN(value) && parseFloat(value) > parseFloat(newBreed.minWeight) ) ? delete errors.maxWeight : errors.maxWeight = '* The value must be a number and greater than minimun weight.'
+            ( !isNaN(value) && parseFloat(value) > parseFloat(newBreed.minWeight) && value.trim().length > 0 ) ? delete errors.maxWeight : errors.maxWeight = '* The value must be a number and greater than minimun weight.'
         }
         if( name === 'lifeSpan') {
-            (!isNaN(value)) ? delete errors.lifeSpan : errors.lifeSpan = '* The value must be a number.'
+            ( !isNaN(value) && value.trim().length > 0 ) ? delete errors.lifeSpan : errors.lifeSpan = '* The value must be a number.'
         }
         
         setNewBreed({
             ...newBreed,
             [name]: value
         });
-        validation();
     }
-    function deleteTemperament(e){
-        const { name, value } = e.target
-        setNewBreed( {
-            ...newBreed,
-            temperament: newBreed.temperament.filter( temp => temp !== value)
-        } );
-        // if( name === 'deleteTemp') {
-        //     if( newBreed.temperament.length < 1 ){
-        //         newBreed.errors.temperament = 'At list one temperament is required.'
-        //     } else delete newBreed.errors.temperament
-        // }
-        validation();
-        //newBreed.temperament.length === 0 && setNewBreed( newBreed.errors.temperament = 'At list one temperament is required.' )
-    }
-    useEffect(()=>{
-        if( newBreed.temperament.length < 1 ){
-            newBreed.errors.temperament = 'At list one temperament is required.'
-        } else delete newBreed.errors.temperament
-        validation();
-    }, [newBreed, validation])
+    // onSelectChange --> function for select Temperament
     function onSelectChange(e){
         const { name, value } = e.target;
         let errors = newBreed.errors;
@@ -92,27 +74,37 @@ export default function AddBreed (){
         !temperaments.includes(value) && temperaments.push(value)
 
         if( name === 'temperamentSelect') {
-            if( newBreed.temperament.length > 1 ) delete errors.temperament
+            if( newBreed.temperament.length > 0 ) delete errors.temperament
         }
         setNewBreed({
             ...newBreed,
             temperament: temperaments
         })
-        validation();
-        //Object.keys(errors).length > 0 ? setDisabled( true ) : setDisabled( false )
     }
-    function validation (){
+    // Delete function for Temperament Select
+    function deleteTemperament(e){
+        const { name, value } = e.target
+        setNewBreed( {
+            ...newBreed,
+            temperament: newBreed.temperament.filter( temp => temp !== value)
+        } );
+        if( name === 'deleteTemp') {
+            if( newBreed.temperament.length < 1 ){
+                newBreed.errors.temperament = 'At list one temperament is required.'
+            } else delete newBreed.errors.temperament
+        }
+    }
+    // useEffect where validation takes place
+    useEffect(()=>{
         Object.keys(newBreed.errors).length > 0 ? setDisabled( true ) : setDisabled( false )
-        console.log("newBreed --> ", newBreed)
-    }
+    }, [newBreed])
+    // Submit function to add a new breed
     function onSubmit(e){
         e.preventDefault()
         axios.post('http://localhost:3001/api/dog', newBreed)
         alert('Breed added successfully')
         navigate('/home')
     }
-
-
     return (
     <div>
         <NavBar className={styles.navbar} />
@@ -138,12 +130,13 @@ export default function AddBreed (){
                     <label htmlFor="filter" className={styles.labelTemp}>Choose Breed Temperaments:</label>
                     <select name="temperamentSelect" onChange={onSelectChange} className={styles.selectTemp} >
                         {
-                            temperaments.data ?
-                            temperaments.data.map((resp, idx)=>{
+                            temperaments.data &&
+                            temperaments.data.map( resp => {
                                 return <option id={resp.id} value={resp.name} key={resp.id} >{resp.name}</option>
-                            }) : ''
+                            })
                         }
                     </select>
+                    <div className={styles.errorMessage}>{newBreed.errors.temperament ? newBreed.errors.temperament : ''}</div>
                 </div>
                 <div className={styles.selected} >
                     {newBreed.temperament && newBreed.temperament.map( (el, idx) => (
