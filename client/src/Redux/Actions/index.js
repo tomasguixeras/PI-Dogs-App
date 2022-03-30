@@ -36,12 +36,6 @@ export function getBreedDetail(id){
                 payload: data
             })
         })
-        // .catch(err => {
-        //     dispatch({
-        //         type: "GET_BREED_DETAIL_ERROR",
-        //         payload: err
-        //     })
-        // })
     }
 }
 export function getBreedByName(name){
