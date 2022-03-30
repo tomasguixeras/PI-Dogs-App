@@ -43,26 +43,23 @@ export default function rootReducer( state = initialState, action ){
                 if(a.weight>b.weight) return action.payload === "ascendent" ? 1 : -1;
                 return 0;
             });
-            
             return{
                 ...state,
                 filteredBreeds: orderedByWeight
             };
         case FILTER_BY_ORIGIN:
             let filterOrigin = [...state.filteredBreeds]
-            let fromDB = filterOrigin.filter( el => typeof el.id === 'string')
-            let fromAPI = filterOrigin.filter( el => typeof el.id === 'number')
-            if(action.payload === "existing") filterOrigin = fromAPI;
-            if(action.payload === "created") filterOrigin = fromDB;
+            if(action.payload === "existing") filterOrigin = filterOrigin.filter( el => typeof el.id === 'number');
+            if(action.payload === "created") filterOrigin = filterOrigin.filter( el => typeof el.id === 'string');
             if(action.payload === "all") filterOrigin = [...state.breeds]
             return {
                 ...state,
                 filteredBreeds: filterOrigin
             }
         case FILTER_BY_TEMPERAMENT:
-            let filterTemperament = [...state.breeds]
+            let filterTemperament = [...state.filteredBreeds]
             if(action.payload === "allTemperaments") filterTemperament = [...state.breeds]
-            else filterTemperament = filterTemperament.filter(dog => dog.temperament ? dog.temperament.includes(action.payload) : '')
+            else filterTemperament = filterTemperament.filter( dog => dog.temperament && dog.temperament.includes(action.payload) )
             return {
                 ...state,
                 filteredBreeds: filterTemperament

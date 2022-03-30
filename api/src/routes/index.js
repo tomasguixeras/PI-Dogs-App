@@ -6,8 +6,6 @@ const Op = Sequelize.Op
 
 const router = Router();
 
-// Configurar los routers
-
 // GET DE RAZAS (SIN QUERY) + DETALLE DE RAZA (CON QUERY)
 router.get('/dogs', async (req, res, next) => {
     let { name } = req.query
@@ -18,15 +16,12 @@ router.get('/dogs', async (req, res, next) => {
                 where:{
                     name: {
                         [Op.iLike]: `%${name}%`
-                        // [Op.substring]: name
                     }
                 },
                 include: Temperament
             })
-            dogsApi = dogsApi.data
-            dogsApi = dogsApi.filter( dog => {
-                return dog.name.toLowerCase().includes(name.toLowerCase())
-            })
+            // API --> Filter & preparation of values for Frontend
+            dogsApi = dogsApi.data.filter( dog => dog.name.toLowerCase().includes(name.toLowerCase()) )
             dogsApi = dogsApi.map( dog => {
                 // Temperament transform
                 let temperaments
@@ -47,6 +42,7 @@ router.get('/dogs', async (req, res, next) => {
                     temperament: temperaments
                 }
             })
+            // DataBase --> Preparation of values for Frontend
             dogsDatabase = dogsDatabase.map( dog => {
                 return {
                     id: dog.id,
@@ -64,7 +60,6 @@ router.get('/dogs', async (req, res, next) => {
     }
     else {
         try {
-            // Peticiones a API + DB
             let dogsFromAPI = axios.get('https://api.thedogapi.com/v1/breeds?api_key={API_KEY}')
             let dogsFromDB = Breed.findAll({ include: Temperament})
             Promise.all([dogsFromAPI, dogsFromDB])
@@ -185,7 +180,7 @@ router.get('/dogs/:id', async(req, res, next) => {
 // GET DE LOS TEMPERAMENTOS
 router.get('/temperament', async (req, res, next) => {
     try {
-        let searchTemp = await Temperament.findAll()
+        let searchTemp = await Temperament.findAll({order: ['name'] })
         if(searchTemp.length>1){
             res.send(searchTemp)
         }
@@ -198,16 +193,7 @@ router.get('/temperament', async (req, res, next) => {
             allDogs = allDogs.map( el =>  el = {name:el} )
             Temperament.bulkCreate(allDogs)
             let searchTemp = await Temperament.findAll()
-            const sortTemp = Array.from(searchTemp).sort((a,b) => {
-                if (a.name > b.name) {
-                    return 1;
-                }
-                if (a.name < b.name) {
-                    return -1;
-                }
-                return 0;
-            })
-            res.send(sortTemp)
+            res.send(searchTemp)
         }
     } catch (error) {
         next(error)
@@ -228,22 +214,16 @@ router.post('/dog', async (req, res, next) => {
             weight,
             lifeSpan,
         })
-
         let temperamentDB = await Temperament.findAll({
             where: {
                 name: temperament
             }
         })
-
         newBreed.addTemperament(temperamentDB)
-
-
         res.send(newBreed)
-        
     } catch (error) {
         next(error)
     }
-
 })
 
 module.exports = router;

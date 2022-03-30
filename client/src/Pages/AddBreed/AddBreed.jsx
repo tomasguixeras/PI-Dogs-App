@@ -46,13 +46,13 @@ export default function AddBreed (){
             ( !isNaN(value) && value.trim().length > 0 ) ? delete errors.minHeight : errors.minHeight = '* The value must be a number.'
         }
         if( name === 'maxHeight') {
-            ( !isNaN(value) && parseFloat(value) >= parseFloat(newBreed.minHeight) ) ? delete errors.maxHeight : errors.maxHeight = '* The value must be a number and greater than minimun height.'
+            ( !isNaN(value) && parseFloat(value) > parseFloat(newBreed.minHeight) ) ? delete errors.maxHeight : errors.maxHeight = '* The value must be a number and greater than minimun height.'
         }
         if( name === 'minWeight') {
             (!isNaN(value)) ? delete errors.minWeight : errors.minWeight = '* The value must be a number.'
         }
         if( name === 'maxWeight') {
-            ( !isNaN(value) || parseFloat(value) >= parseFloat(newBreed.minWeight) ) ? delete errors.maxWeight : errors.maxWeight = '* The value must be a number and greater than minimun weight.'
+            ( !isNaN(value) && parseFloat(value) > parseFloat(newBreed.minWeight) ) ? delete errors.maxWeight : errors.maxWeight = '* The value must be a number and greater than minimun weight.'
         }
         if( name === 'lifeSpan') {
             (!isNaN(value)) ? delete errors.lifeSpan : errors.lifeSpan = '* The value must be a number.'

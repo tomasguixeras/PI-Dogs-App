@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { configure, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-17-updated";
 
