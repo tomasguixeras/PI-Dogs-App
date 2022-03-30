@@ -42,7 +42,7 @@ export default function AddBreed (){
         let errors = newBreed.errors;
 
         if( name === 'name') {
-            ( /^[a-zA-Z\ áéíóúÁÉÍÓÚñÑ\s]*$/.test(value.trim()) && isNaN(value) && value.trim().length > 0 ) ? delete errors.name : errors.name = '* The value must be a valid string.'
+            ( /^[a-zA-Z áéíóúÁÉÍÓÚñÑ\s]*$/.test(value.trim()) && isNaN(value) && value.trim().length > 0 ) ? delete errors.name : errors.name = '* The value must be a valid string.'
         }
         if( name === 'minHeight') {
             ( !isNaN(value) && value.trim().length > 0 ) ? delete errors.minHeight : errors.minHeight = '* The value must be a number.'
