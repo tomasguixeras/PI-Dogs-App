@@ -27,6 +27,8 @@
     width: 87%;
 }
 .errorMessage{
+    display: inline-block;
+    height: 12px;
     color: black;
     font-family: monospace, 'Courier New', Courier;
     font-size: 12px;

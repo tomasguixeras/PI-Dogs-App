@@ -18,13 +18,18 @@ export default function Home (){
     
     let loading = useSelector(state => state.loading)
     let breeds = useSelector(state => state.filteredBreeds)
+    
+    const [selectReload, setselectReload] = useState({
+        filterTemp: 'allTemperaments',
+        filterOrigin: 'all',
+        sort: 'A-Z'
+    });
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(9);
 
     useEffect(()=>{
         dispatch(getAllBreeds())
     }, [dispatch] )
-
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(9);
 
     // Get current posts
     const indexOfLastPost = currentPage * postsPerPage;
@@ -37,8 +42,8 @@ export default function Home (){
     return (
     <div>
         <div className={styles.fullNavbar} >
-            <NavBar />
-            <SearchBar />
+            <NavBar setselectReload={setselectReload} />
+            <SearchBar setCurrentPage={setCurrentPage} setselectReload={setselectReload} selectReload={selectReload}/>
         </div>
         <div className={styles.bodyCards}>
             <div className={styles.cards}>

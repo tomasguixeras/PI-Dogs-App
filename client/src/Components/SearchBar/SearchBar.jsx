@@ -6,7 +6,7 @@ import { getBreedByName, sortAlpha, sortWeight } from '../../Redux/Actions'
 
 import styles from './SearchBar.module.css'
 
-export default function SearchBar(){
+export default function SearchBar({setCurrentPage, setselectReload, selectReload}){
     const [search, setSearch] = useState("")
     const dispatch = useDispatch()
 
@@ -22,12 +22,14 @@ export default function SearchBar(){
     
     useEffect(() => {
         dispatch(getBreedByName(search))
-    }, [dispatch, search])
+        setCurrentPage(1)
+    }, [dispatch, search, setCurrentPage])
         
     function onChange(e){
         let sort = e.target.value
         if(sort==="A-Z" || sort==="Z-A") dispatch(sortAlpha(sort))
         if(sort==="ascendent" || sort==="descendent") dispatch(sortWeight(sort))
+        setselectReload(sort)
     }
         
     return (
@@ -41,7 +43,7 @@ export default function SearchBar(){
             <div className={styles.filters} >
             <div className={styles.sort}>
                 <label htmlFor="filter" className={styles.labelSort} >Sort by:</label>
-                <select name="filter" onChange={onChange} className={styles.selectSort} >
+                <select name="filter" onChange={onChange} className={styles.selectSort} value={selectReload.sort} >
                     <optgroup label="By name:">
                         <option value="A-Z">A-Z</option>
                         <option value="Z-A">Z-A</option>
@@ -52,8 +54,8 @@ export default function SearchBar(){
                 </optgroup>
                 </select>
             </div>
-                <FilterOrigin />
-                <FilterTemp />
+                <FilterOrigin setCurrentPage={setCurrentPage} setselectReload={setselectReload} selectReload={selectReload}/>
+                <FilterTemp setCurrentPage={setCurrentPage} setselectReload={setselectReload} selectReload={selectReload}/>
             </div>
         </div>
 
