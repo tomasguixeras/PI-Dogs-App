@@ -5,8 +5,9 @@ import { filterByTemperament, getTemperaments } from "../../Redux/Actions/index.
 import styles from './SearchBar.module.css'
 
 export default function FilterByTemperament(){
-    let temperaments = useSelector(state => state.temperaments)
     let dispatch = useDispatch()
+    
+    let temperaments = useSelector(state => state.temperaments)
     useEffect(()=>{
         dispatch(getTemperaments())
     }, [dispatch])

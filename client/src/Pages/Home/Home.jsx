@@ -15,9 +15,10 @@ import PaginationButtons from '../../Components/PaginationButtons/PaginationButt
 
 export default function Home (){
     let dispatch = useDispatch()
-    let loading = useSelector(state => state.loading)
     
+    let loading = useSelector(state => state.loading)
     let breeds = useSelector(state => state.filteredBreeds)
+
     useEffect(()=>{
         dispatch(getAllBreeds())
     }, [dispatch] )
@@ -32,30 +33,7 @@ export default function Home (){
 
     // Change page
     const paginate = pageNumber => setCurrentPage(pageNumber);
-    // const items_per_page = 9
-    // const [ items, setItems ] = useState([...breeds].splice(0, items_per_page))
-    // const [ currentPage, setCurrentPage ] = useState(0);
 
-    
-    // function onPreviousPage(e){
-    //     const prevPage = currentPage - 1
-    //     if(prevPage < 0) return
-    //     const firstIndex = prevPage * items_per_page
-
-    //     setItems([...breeds].splice(firstIndex, items_per_page))
-    //     setCurrentPage(prevPage)
-    // }
-    // function onNextPage(e){
-    //     const totalElements = breeds.length
-    //     const nextPage = currentPage + 1
-    //     const firstIndex = nextPage * items_per_page
-
-    //     if( firstIndex === totalElements ) return
-
-    //     setItems([...breeds].splice(firstIndex, items_per_page))
-    //     setCurrentPage(nextPage)
-
-    // }
     return (
     <div>
         <div className={styles.fullNavbar} >

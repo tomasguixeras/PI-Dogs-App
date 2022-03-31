@@ -1,10 +1,10 @@
 import styles from'./DogCard.module.css'
+
 import { useNavigate } from 'react-router-dom'
-
-
 
 export default function DogCard (props){
     const navigate = useNavigate()
+    
     return (
     <div className={styles.mainDiv} onClick={() => navigate(`/BreedDetail/${props.id}`)}>
         <h2>{props.name}</h2>
