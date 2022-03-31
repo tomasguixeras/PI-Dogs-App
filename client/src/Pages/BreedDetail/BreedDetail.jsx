@@ -62,7 +62,7 @@ export default function BreedDetail (){
                     </div>
                     <button type='button' onClick={() => navigate('/home')} className={styles.backHome} >Back</button>
                 </div>
-            </div> : <NotFound /> )
+            </div> : <NotFound message="Breed"/> )
             
         }
         </div>

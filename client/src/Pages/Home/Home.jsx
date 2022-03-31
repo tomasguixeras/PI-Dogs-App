@@ -51,7 +51,7 @@ export default function Home (){
                         name= {e.name}
                         weight= {e.weight}
                         temperament= {e.temperament}
-                />) ) : <NotFound />)}
+                />) ) : <NotFound message="Breed" />)}
             </div>
             < PaginationButtons 
                 postsPerPage={postsPerPage}

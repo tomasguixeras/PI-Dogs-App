@@ -15,7 +15,7 @@ function App() {
         <Route path="/Home" element={<Home />} />
         <Route path="/BreedDetail/:id" element={<BreedDetail />} />
         <Route path="/AddBreed" element={<AddBreed />} />
-        <Route path="/*" element={<NotFound />} />
+        <Route path="/*" element={<NotFound message="Page"/>} />
       </Routes>
     </BrowserRouter>
   );
