@@ -89,8 +89,8 @@ export default function AddBreed (){
             temperament: newBreed.temperament.filter( temp => temp !== value)
         } );
         if( name === 'deleteTemp') {
-            if( newBreed.temperament.length < 1 ){
-                newBreed.errors.temperament = 'At list one temperament is required.'
+            if( newBreed.temperament.length <= 1 ){
+                newBreed.errors.temperament = '* At list one temperament is required.'
             } else delete newBreed.errors.temperament
         }
     }

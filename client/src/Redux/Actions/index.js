@@ -2,7 +2,6 @@ import axios from 'axios'
 export const GET_ALL_BREEDS = "GET_ALL_BREEDS";
 export const GET_BREED_DETAIL = "GET_BREED_DETAIL";
 export const GET_BREED_BY_NAME = "GET_BREED_BY_NAME";
-export const ADD_BREED = "ADD_BREED";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
 export const SORT_ALPHA = "SORT_ALPHA";
 export const SORT_WEIGHT = "SORT_WEIGHT"
@@ -61,11 +60,6 @@ export function getTemperaments(){
                 payload: data
             })
         })
-    }
-}
-export function addBreed(values){
-    return function (){
-        axios.post('http://localhost:3001/api/dog', values)
     }
 }
 export function sortAlpha(alphabeticalOrder){

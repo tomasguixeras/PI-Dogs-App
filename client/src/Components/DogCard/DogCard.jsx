@@ -1,4 +1,5 @@
 import styles from'./DogCard.module.css'
+import defaultImage from './defaultImage.png'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -8,7 +9,9 @@ export default function DogCard (props){
     return (
     <div className={styles.mainDiv} onClick={() => navigate(`/BreedDetail/${props.id}`)}>
         <h2>{props.name}</h2>
-        <img src={props.image} alt='Dog'/>
+        <img src={props.image} alt='Dog' onError={(e)=>{
+            e.target.onerror = null
+            e.target.src = defaultImage}} />
         {
         props.weight !== null ? <h4>{`Weight: ${props.weight}Kg`}</h4>
         : <h4>Weight value not available</h4>
