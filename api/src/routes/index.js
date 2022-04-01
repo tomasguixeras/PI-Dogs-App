@@ -156,7 +156,7 @@ router.get('/dogs/:id', async(req, res, next) => {
                 }else res.send({error: 'Invalid id'})
         }
         else{
-            if(id.includes('-')){
+            if( id.includes('-') && id.length > 30 ){
                 let breedFromDB = await Breed.findByPk(id, {
                     include: Temperament
                 })
