@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import styles from './BreedDetail.module.css'
+import defaultImage from './defaultImage.png'
 import { getBreedDetail } from '../../Redux/Actions'
 
 import NavBar from '../../Components/NavBar/NavBar.jsx'
@@ -33,7 +34,9 @@ export default function BreedDetail (){
             <div className={styles.mainDiv}>
                 <div className={styles.leftDiv}>
                     <h2 className={styles.name} >{breed.name}</h2>
-                    <img src={breed.image} alt='Dog' className={styles.image} />
+                    <img src={breed.image} alt='Dog' className={styles.image} onError={(e)=>{
+                                                                    e.target.onerror = null
+                                                                    e.target.src = defaultImage}} />
                 </div>
                 <div className={styles.rightDiv}>
                     <div className={styles.rightTopDiv}>

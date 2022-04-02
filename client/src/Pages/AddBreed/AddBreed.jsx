@@ -45,19 +45,19 @@ export default function AddBreed (){
             ( /^[a-zA-Z áéíóúÁÉÍÓÚñÑ\s]*$/.test(value.trim()) && isNaN(value) && value.trim().length > 0 ) ? delete errors.name : errors.name = '* The value must be a valid string.'
         }
         if( name === 'minHeight') {
-            ( !isNaN(value) && value.trim().length > 0 ) ? delete errors.minHeight : errors.minHeight = '* The value must be a number.'
+            ( !isNaN(value) && value.trim().length > 0 && parseFloat(value) > 1 ) ? delete errors.minHeight : errors.minHeight = '* The value must be a number.'
         }
         if( name === 'maxHeight') {
-            ( !isNaN(value) && parseFloat(value) > parseFloat(newBreed.minHeight) && value.trim().length > 0 ) ? delete errors.maxHeight : errors.maxHeight = '* The value must be a number and greater than minimun height.'
+            ( !isNaN(value) && parseFloat(value) > parseFloat(newBreed.minHeight) && value.trim().length > 0 && parseFloat(value) > 1 ) ? delete errors.maxHeight : errors.maxHeight = '* The value must be a number and greater than minimun height.'
         }
         if( name === 'minWeight') {
-            ( !isNaN(value) && value.trim().length > 0 ) ? delete errors.minWeight : errors.minWeight = '* The value must be a number.'
+            ( !isNaN(value) && value.trim().length > 0 && parseFloat(value) > 1 ) ? delete errors.minWeight : errors.minWeight = '* The value must be a number.'
         }
         if( name === 'maxWeight') {
-            ( !isNaN(value) && parseFloat(value) > parseFloat(newBreed.minWeight) && value.trim().length > 0 ) ? delete errors.maxWeight : errors.maxWeight = '* The value must be a number and greater than minimun weight.'
+            ( !isNaN(value) && parseFloat(value) > parseFloat(newBreed.minWeight) && value.trim().length > 0 && parseFloat(value) > 1 ) ? delete errors.maxWeight : errors.maxWeight = '* The value must be a number and greater than minimun weight.'
         }
         if( name === 'lifeSpan') {
-            ( !isNaN(value) && value.trim().length > 0 ) ? delete errors.lifeSpan : errors.lifeSpan = '* The value must be a number.'
+            ( !isNaN(value) && value.trim().length > 0 && parseFloat(value) > 1 ) ? delete errors.lifeSpan : errors.lifeSpan = '* The value must be a number.'
         }
         
         setNewBreed({
