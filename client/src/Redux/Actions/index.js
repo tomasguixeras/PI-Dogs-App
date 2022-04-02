@@ -14,7 +14,7 @@ export function getAllBreeds(){
         dispatch({
             type: LOADING
         })
-        axios.get('http://localhost:3001/api/dogs')
+        axios.get(`/api/dogs`)
         .then(data => {
             dispatch({
                 type: GET_ALL_BREEDS,
@@ -28,7 +28,7 @@ export function getBreedDetail(id){
         dispatch({
             type: LOADING
         })
-        axios.get(`http://localhost:3001/api/dogs/${id}`)
+        axios.get(`/api/dogs/${id}`)
         .then(data => {
             dispatch({
                 type: GET_BREED_DETAIL,
@@ -42,7 +42,7 @@ export function getBreedByName(name){
         dispatch({
             type: LOADING
         })
-        axios.get(`http://localhost:3001/api/dogs?name=${name}`)
+        axios.get(`/api/dogs?name=${name}`)
         .then(data => {
             dispatch({
                 type: GET_ALL_BREEDS,
@@ -53,7 +53,7 @@ export function getBreedByName(name){
 }
 export function getTemperaments(){
     return function (dispatch){
-        axios.get('http://localhost:3001/api/temperament')
+        axios.get(`/api/temperament`)
         .then( data => {
             dispatch({
                 type: GET_TEMPERAMENTS,

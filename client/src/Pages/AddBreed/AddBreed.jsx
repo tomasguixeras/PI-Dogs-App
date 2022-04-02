@@ -101,7 +101,7 @@ export default function AddBreed (){
     // Submit function to add a new breed
     function onSubmit(e){
         e.preventDefault()
-        axios.post('http://localhost:3001/api/dog', newBreed)
+        axios.post('/api/dog', newBreed)
         alert('Breed added successfully')
         navigate('/home')
     }
