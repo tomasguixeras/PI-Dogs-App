@@ -6,7 +6,7 @@ import { getAllBreeds } from '../../Redux/Actions'
 
 
 import NavBar from '../../Components/NavBar/NavBar.jsx'
-import SearchBar from '../../Components/SearchBar/SearchBar.jsx'
+import SearchBar from '../../Components/SearchBar/SubNavBar.jsx'
 import Card from '../../Components/DogCard/DogCard.jsx'
 import Loading from '../../Components/Loading/Loading.jsx'
 import NotFound from '../../Components/NotFound/NotFound.jsx'
@@ -42,28 +42,31 @@ export default function Home (){
     return (
     <div>
         <div className={styles.fullNavbar} >
-            <NavBar setselectReload={setselectReload} />
+            <NavBar setselectReload={setselectReload} setCurrentPage={setCurrentPage} selectReload={selectReload} home={true}/>
             <SearchBar setCurrentPage={setCurrentPage} setselectReload={setselectReload} selectReload={selectReload}/>
         </div>
         <div className={styles.bodyCards}>
             <div className={styles.cards}>
                 {loading ? <Loading /> : (
-                    currentPosts.length > 0 ? currentPosts.map( e => (
-                    <Card 
-                        key= {e.id}
-                        id= {e.id}
-                        image= {e.image}
-                        name= {e.name}
-                        weight= {e.weight}
-                        temperament= {e.temperament}
-                        />) ) : <NotFound message="Breed" />)}
+                    currentPosts.length > 0 ? 
+                    <>
+                    {currentPosts.map( e => (
+                        <Card 
+                            key= {e.id}
+                            id= {e.id}
+                            image= {e.image}
+                            name= {e.name}
+                            weight= {e.weight}
+                            temperament= {e.temperament}
+                            />) )} 
+                        < PaginationButtons 
+                            postsPerPage={postsPerPage}
+                            totalPosts={breeds.length}
+                            paginate={paginate}
+                            currentPage= {currentPage}
+                        />
+                    </> : <NotFound message="Breed" />)}
             </div>
-            < PaginationButtons 
-                postsPerPage={postsPerPage}
-                totalPosts={breeds.length}
-                paginate={paginate}
-                currentPage= {currentPage}
-            />
         </div>
     </div>
     )
