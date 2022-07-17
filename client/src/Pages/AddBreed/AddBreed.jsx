@@ -112,43 +112,110 @@ export default function AddBreed (){
         <div className={styles.mainForm}>
             <h3>Add a Breed:</h3>
             <form className={styles.form} onSubmit={onSubmit}>
-                <input type="text" name='name' placeholder='Name' onChange={handleChange} value={newBreed.name} />
-                    <div className={styles.errorMessage}>{newBreed.errors.name ? newBreed.errors.name : ''}</div>
-                <input type="text" name='imageUrl' placeholder='Image Url' onChange={handleChange} value={newBreed.imageUrl} />
-                    <div className={styles.errorMessage} >{newBreed.imageUrl ? "" : "Insert a valid image url of the breed."}</div>
-                <input type="text" name='minHeight' placeholder='Minimum Height' onChange={handleChange} value={newBreed.minHeight} />
-                    <div className={styles.errorMessage} >{newBreed.errors.minHeight ? newBreed.errors.minHeight : ''}</div>
-                <input type="text" name='maxHeight' placeholder='Maximum Height' onChange={handleChange} value={newBreed.maxHeight} />
-                    <div className={styles.errorMessage} >{newBreed.errors.maxHeight ? newBreed.errors.maxHeight : ''}</div>
-                <input type="text" name='minWeight' placeholder='Minimum Weight' onChange={handleChange} value={newBreed.minWeight} />
-                    <div className={styles.errorMessage} >{newBreed.errors.minWeight ? newBreed.errors.minWeight : ''}</div>
-                <input type="text" name='maxWeight' placeholder='Maximun Weight' onChange={handleChange} value={newBreed.maxWeight} />
-                    <div className={styles.errorMessage} >{newBreed.errors.maxWeight ? newBreed.errors.maxWeight : ''}</div>
-                <input type="text" name='lifeSpan' placeholder='Life span' onChange={handleChange} value={newBreed.lifeSpan} />
-                    <div className={styles.errorMessage} >{newBreed.errors.lifeSpan ? newBreed.errors.lifeSpan : ''}</div>
-                <div className={styles.labelInput} >
-                    <label htmlFor="filter" className={styles.labelTemp}>Choose Breed Temperaments:</label>
-                    <select name="temperamentSelect" onChange={onSelectChange} className={styles.selectTemp} >
-                        {
-                            temperaments.data &&
-                            temperaments.data.map( resp => {
-                                return <option id={resp.id} value={resp.name} key={resp.id} >{resp.name}</option>
-                            })
-                        }
-                    </select>
-                    <div className={styles.errorMessage}>{newBreed.errors.temperament ? newBreed.errors.temperament : ''}</div>
+                <div className={styles.formContainer}>
+                    <div className={styles.firtRow}>
+                        <div className={styles.textInput}>
+                            <input type="text" name='name' placeholder='Name' onChange={handleChange} value={newBreed.name} />
+                                <div className={styles.errorMessage}>{newBreed.errors.name ? newBreed.errors.name : ''}</div>
+                        </div>
+                        <div className={styles.textInput}>
+                            <input type="text" name='lifeSpan' placeholder='Life span' onChange={handleChange} value={newBreed.lifeSpan} />
+                                <div className={styles.errorMessage} >{newBreed.errors.lifeSpan ? newBreed.errors.lifeSpan : ''}</div>
+                        </div>
+                    </div>
+                    <div className={styles.secondRow}>
+                        <div className={styles.textInput}>
+                            <input type="text" name='minHeight' placeholder='Minimum Height' onChange={handleChange} value={newBreed.minHeight} />
+                                <div className={styles.errorMessage} >{newBreed.errors.minHeight ? newBreed.errors.minHeight : ''}</div>
+                        </div>
+                        <div className={styles.textInput}>
+                            <input type="text" name='maxHeight' placeholder='Maximum Height' onChange={handleChange} value={newBreed.maxHeight} />
+                                <div className={styles.errorMessage} >{newBreed.errors.maxHeight ? newBreed.errors.maxHeight : ''}</div>
+                        </div>
+                    </div>
+                    <div className={styles.thirdRow}>
+                        <div className={styles.textInput}>
+                            <input type="text" name='minWeight' placeholder='Minimum Weight' onChange={handleChange} value={newBreed.minWeight} />
+                                <div className={styles.errorMessage} >{newBreed.errors.minWeight ? newBreed.errors.minWeight : ''}</div>
+                        </div>
+                        <div className={styles.textInput}>
+                            <input type="text" name='maxWeight' placeholder='Maximun Weight' onChange={handleChange} value={newBreed.maxWeight} />
+                                <div className={styles.errorMessage} >{newBreed.errors.maxWeight ? newBreed.errors.maxWeight : ''}</div>
+                        </div>
+                    </div>
+                    <input type="text" name='imageUrl' placeholder='Image Url' onChange={handleChange} value={newBreed.imageUrl} />
+                        <div className={styles.errorMessage} >{newBreed.imageUrl ? "" : "Insert a valid image url of the breed."}</div>
+                    <div className={styles.labelInput} >
+                        <label htmlFor="filter" className={styles.labelTemp}>Choose Breed Temperaments:</label>
+                        <select name="temperamentSelect" onChange={onSelectChange} className={styles.selectTemp} >
+                            {
+                                temperaments.data &&
+                                temperaments.data.map( resp => {
+                                    return <option id={resp.id} value={resp.name} key={resp.id} >{resp.name}</option>
+                                })
+                            }
+                        </select>
+                        <div className={styles.errorMessage}>{newBreed.errors.temperament ? newBreed.errors.temperament : ''}</div>
+                    </div>
+                    <div className={styles.selected} >
+                        {newBreed.temperament && newBreed.temperament.map( (el, idx) => (
+                        <div className={styles.selDiv} key={idx} >
+                            <span >{el}</span>
+                            <button type='button' onClick={deleteTemperament} className={styles.deleteTemp} name='deleteTemp' value={el} >X</button>
+                        </div>))}
+                    </div>
+                    <div className={styles.submitButton}>
+                        <button type='submit' disabled={disabled} className={styles.submit}>Add Breed</button>
+                    </div>
                 </div>
-                <div className={styles.selected} >
-                    {newBreed.temperament && newBreed.temperament.map( (el, idx) => (
-                    <div className={styles.selDiv} key={idx} >
-                        <span >{el}</span>
-                        <button type='button' onClick={deleteTemperament} className={styles.deleteTemp} name='deleteTemp' value={el} >X</button>
-                    </div>))}
-                </div>
-                <button type='submit' disabled={disabled} className={styles.submit}>Add Breed</button>
             </form>
         </div>
         </div>
     </div>
     )
 }
+
+// <div>
+//         <NavBar className={styles.navbar} />
+//         <div className={styles.mainDiv}>
+//         <div className={styles.mainForm}>
+//             <h3>Add a Breed:</h3>
+//             <form className={styles.form} onSubmit={onSubmit}>
+//                 <input type="text" name='name' placeholder='Name' onChange={handleChange} value={newBreed.name} />
+//                     <div className={styles.errorMessage}>{newBreed.errors.name ? newBreed.errors.name : ''}</div>
+//                 <input type="text" name='imageUrl' placeholder='Image Url' onChange={handleChange} value={newBreed.imageUrl} />
+//                     <div className={styles.errorMessage} >{newBreed.imageUrl ? "" : "Insert a valid image url of the breed."}</div>
+//                 <input type="text" name='minHeight' placeholder='Minimum Height' onChange={handleChange} value={newBreed.minHeight} />
+//                     <div className={styles.errorMessage} >{newBreed.errors.minHeight ? newBreed.errors.minHeight : ''}</div>
+//                 <input type="text" name='maxHeight' placeholder='Maximum Height' onChange={handleChange} value={newBreed.maxHeight} />
+//                     <div className={styles.errorMessage} >{newBreed.errors.maxHeight ? newBreed.errors.maxHeight : ''}</div>
+//                 <input type="text" name='minWeight' placeholder='Minimum Weight' onChange={handleChange} value={newBreed.minWeight} />
+//                     <div className={styles.errorMessage} >{newBreed.errors.minWeight ? newBreed.errors.minWeight : ''}</div>
+//                 <input type="text" name='maxWeight' placeholder='Maximun Weight' onChange={handleChange} value={newBreed.maxWeight} />
+//                     <div className={styles.errorMessage} >{newBreed.errors.maxWeight ? newBreed.errors.maxWeight : ''}</div>
+//                 <input type="text" name='lifeSpan' placeholder='Life span' onChange={handleChange} value={newBreed.lifeSpan} />
+//                     <div className={styles.errorMessage} >{newBreed.errors.lifeSpan ? newBreed.errors.lifeSpan : ''}</div>
+//                 <div className={styles.labelInput} >
+//                     <label htmlFor="filter" className={styles.labelTemp}>Choose Breed Temperaments:</label>
+//                     <select name="temperamentSelect" onChange={onSelectChange} className={styles.selectTemp} >
+//                         {
+//                             temperaments.data &&
+//                             temperaments.data.map( resp => {
+//                                 return <option id={resp.id} value={resp.name} key={resp.id} >{resp.name}</option>
+//                             })
+//                         }
+//                     </select>
+//                     <div className={styles.errorMessage}>{newBreed.errors.temperament ? newBreed.errors.temperament : ''}</div>
+//                 </div>
+//                 <div className={styles.selected} >
+//                     {newBreed.temperament && newBreed.temperament.map( (el, idx) => (
+//                     <div className={styles.selDiv} key={idx} >
+//                         <span >{el}</span>
+//                         <button type='button' onClick={deleteTemperament} className={styles.deleteTemp} name='deleteTemp' value={el} >X</button>
+//                     </div>))}
+//                 </div>
+//                 <button type='submit' disabled={disabled} className={styles.submit}>Add Breed</button>
+//             </form>
+//         </div>
+//         </div>
+//     </div>
