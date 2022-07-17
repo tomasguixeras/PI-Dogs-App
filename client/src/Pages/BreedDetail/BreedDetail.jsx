@@ -25,7 +25,7 @@ export default function BreedDetail (){
     let idExists;
     if(breed) breed.name ? idExists = true : idExists = false
     return (
-    <div>
+    <div className={styles.mainContainer}>
         <NavBar />
         <div className={styles.container}>
         {
@@ -63,7 +63,9 @@ export default function BreedDetail (){
                     }
                     </div>
                     </div>
-                    <button type='button' onClick={() => navigate('/home')} className={styles.backHome} >Back</button>
+                    <div className={styles.backButtonDiv}>
+                        <button type='button' onClick={() => navigate('/home')} className={styles.backHome} >Back</button>
+                    </div>
                 </div>
             </div> : <NotFound message="Breed"/> )
             

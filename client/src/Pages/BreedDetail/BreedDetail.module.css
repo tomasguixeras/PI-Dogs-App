@@ -1,3 +1,7 @@
+.mainContainer{
+    width: 100%;
+    height: 100vh;
+}
 .container{
     display: flex;
     flex-direction: column;
@@ -11,7 +15,7 @@
     border: solid 2px #9B9B7A;
     box-shadow: 0 0 10px grey;
     border-radius: 17px;
-    width: 170vh;
+    width: 90%;
     height: 75vh;
     padding: 20px;
     margin: 20px;
@@ -36,11 +40,10 @@
     border-radius: 17px;
 }
 .rightDiv{
+    width: 85vh;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
-    justify-content: center;
-    width: 85vh;
+    justify-content: space-between;
 }
 .rightDiv h4{
     color: black;
@@ -71,11 +74,13 @@
     padding: 7px;
 }
 .rightTopDiv{
+    margin: 10px;
+    margin-top: 25%;
+
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    margin: 10px;
 }
 .lifeSpan1{
     display: flex;
@@ -112,11 +117,12 @@ span{
 .weight h4{
     margin-bottom: -5px;
 }
+.backButtonDiv{
+    display: flex;
+    justify-content: center;
+}
 .backHome{
     background-color: #cad2c5;
-    position: absolute;
-    right: 100px;
-    bottom: 70px;
     color: black;
     font-family: monospace, 'Courier New', Courier;
     font-size: 15px;
