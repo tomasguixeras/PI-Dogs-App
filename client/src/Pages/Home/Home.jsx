@@ -46,10 +46,14 @@ export default function Home (){
             <SearchBar setCurrentPage={setCurrentPage} setselectReload={setselectReload} selectReload={selectReload}/>
         </div>
         <div className={styles.bodyCards}>
-            <div className={styles.cards}>
-                {loading ? <Loading /> : (
-                    currentPosts.length > 0 ? 
-                    <>
+            {
+            loading && <Loading /> 
+            }
+            {
+
+            currentPosts.length > 0 ? 
+            <>
+                <div className={styles.cards}>
                     {currentPosts.map( e => (
                         <Card 
                             key= {e.id}
@@ -59,14 +63,16 @@ export default function Home (){
                             weight= {e.weight}
                             temperament= {e.temperament}
                             />) )} 
-                        < PaginationButtons 
-                            postsPerPage={postsPerPage}
-                            totalPosts={breeds.length}
-                            paginate={paginate}
-                            currentPage= {currentPage}
-                        />
-                    </> : <NotFound message="Breed" />)}
-            </div>
+                </div>
+                < PaginationButtons 
+                    postsPerPage={postsPerPage}
+                    totalPosts={breeds.length}
+                    paginate={paginate}
+                    currentPage= {currentPage}
+                />
+            </>
+            :<NotFound message="Breed" />
+            }   
         </div>
     </div>
     )

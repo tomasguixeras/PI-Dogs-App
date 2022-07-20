@@ -4,6 +4,8 @@
 }
 .bodyCards{
     padding-top: 150px;
+    display: flex;
+    flex-direction: column;
 }
 .cards{
     padding: 10px;
