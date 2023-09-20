@@ -24,7 +24,7 @@ The technological stack used for development was:
 <img src="https://res.cloudinary.com/tomyboohngs/image/upload/v1652024141/PI%20Dogs%20App/Breed_Detail_ejln55.png" width="450"/>
 <img src="https://res.cloudinary.com/tomyboohngs/image/upload/v1652024141/PI%20Dogs%20App/Empty_Form_hzmk2m.png" width="450"/>
 
-Tryout all the functionalities on the [deploy](https:www.google.com) or whatch this video at [YouTube](https://www.youtube.com/watch?v=zPcRGyuPLb0).
+Tryout all the functionalities on the [deploy](https://pi-dogs-app.vercel.app/) or whatch this video at [YouTube](https://www.youtube.com/watch?v=zPcRGyuPLb0).
 
 
 ## Feedback
