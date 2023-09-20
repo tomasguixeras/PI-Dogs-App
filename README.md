@@ -1,37 +1,56 @@
-![Logo](https://static.wixstatic.com/media/85087f_0d84cbeaeb824fca8f7ff18d7c9eaafd~mv2.png/v1/fill/w_160,h_30,al_c,q_85,usm_0.66_1.00_0.01/Logo_completo_Color_1PNG.webp)
+<img src="https://res.cloudinary.com/tomyboohngs/image/upload/v1660682891/TomasBohnGs/Tomas_YW_h13vjb.png" width="100" align="right"/>
+
+#
+#
+# Heny Dog App
+This web app was designed to give dog enthusiasts a minimalistic and good-looking website where to check stats of their favorite dog breeds.\
+Users have the possibility of creating their own dog breeds in case they are missing. These breeds are going to be stored in the database.\
+Also on the home page, they can look up for a specific breed by using the serchbar and filters, which act on the breeds from the external API together with the ones stored in the database.
 
 
-# PI Dogs App
+The technological stack used for development was:
 
-#### Objective
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
-The aim of the project was to put in practice all the technologies lern during Henrys Bootcamp.
+#
+## Screenshots
 
-#### Funcionality
+<img src="https://res.cloudinary.com/tomyboohngs/image/upload/v1652024142/PI%20Dogs%20App/Landing_Page_eivcwc.png" width="450"/>
+<img src="https://res.cloudinary.com/tomyboohngs/image/upload/v1652024141/PI%20Dogs%20App/Home_Page_ggefxx.png" width="450"/>
+<img src="https://res.cloudinary.com/tomyboohngs/image/upload/v1652024141/PI%20Dogs%20App/Breed_Detail_ejln55.png" width="450"/>
+<img src="https://res.cloudinary.com/tomyboohngs/image/upload/v1652024141/PI%20Dogs%20App/Empty_Form_hzmk2m.png" width="450"/>
 
-Users have the posibility to create their own dog breeds which are going to be stored on the database. Also at the home page they can lookup for a specific breed by using the serchbar and filters, which work with breeds from an external API together with the ones stored on the database.
-
-
-## Tech Stack
-
-**Frontend:** React, Redux, HTML & CSS
-
-**Backend:** Node, Express, Sequelize
-
-**Database:** PostgreSQL
+Tryout all the functionalities on the [deploy](https:www.google.com) or whatch this video at [YouTube](https://www.youtube.com/watch?v=zPcRGyuPLb0).
 
 
-## Project Screenshots
-Landing Page
-![Landing Page](https://res.cloudinary.com/tomyboohngs/image/upload/v1652024142/PI%20Dogs%20App/Landing_Page_eivcwc.png)
-Home Page
-![Home Page](https://res.cloudinary.com/tomyboohngs/image/upload/v1652024141/PI%20Dogs%20App/Home_Page_ggefxx.png)
-Home Page Buttom with pagination
-![Home Page II](https://res.cloudinary.com/tomyboohngs/image/upload/v1652024141/PI%20Dogs%20App/Home_buttom_with_pagination_v1yn5y.png)
-Breed Detail
-![Breed Detail](https://res.cloudinary.com/tomyboohngs/image/upload/v1652024141/PI%20Dogs%20App/Breed_Detail_ejln55.png)
-Form with Javascript validation
-![Form Page](https://res.cloudinary.com/tomyboohngs/image/upload/v1652024141/PI%20Dogs%20App/Empty_Form_hzmk2m.png)
-Form ready to submit
-![Form Page II](https://res.cloudinary.com/tomyboohngs/image/upload/v1652024141/PI%20Dogs%20App/Fom_ready_to_submit_sfkkea.png)
+#
+## Feedback
+
+If you have any feedback, please reach me out at tomasbohngs@gmail.com or at:
+
+
+<div id="badges">
+  <a href="https://www.linkedin.com/in/tomasbohnguixeras/" target="_blank" >
+    <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>
+  </a>
+  <a href="https://twitter.com/tomasguixeras" target="_blank" >
+    <img src="https://img.shields.io/badge/Twitter-9cf?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter Badge"/>
+  </a>
+  <a href="https://wa.me/34637125170" target="_blank" >
+    <img src="https://img.shields.io/badge/WhatsApp-brightgreen?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp Badge"/>
+  </a>
+  <a href="https://t.me/tomasguixeras" target="_blank" >
+    <img src="https://img.shields.io/badge/Telegram-26A5E4?logo=telegram&logoColor=fff&style=for-the-badge" alt="Telegram Badge"/>
+  </a>
+  <a href="https://tomasbohngs.vercel.app/" target="_blank" >
+    <img src="https://img.shields.io/badge/Portfolio-yellow?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Portfolio Badge"/>
+  </a>
+</div>
 
