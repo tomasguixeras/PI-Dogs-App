@@ -1,7 +1,5 @@
 <img src="https://res.cloudinary.com/tomyboohngs/image/upload/v1660682891/TomasBohnGs/Tomas_YW_h13vjb.png" width="100" align="right"/>
 
-#
-#
 # Heny Dog App
 This web app was designed to give dog enthusiasts a minimalistic and good-looking website where to check stats of their favorite dog breeds.\
 Users have the possibility of creating their own dog breeds in case they are missing. These breeds are going to be stored in the database.\
@@ -19,7 +17,6 @@ The technological stack used for development was:
 ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
-#
 ## Screenshots
 
 <img src="https://res.cloudinary.com/tomyboohngs/image/upload/v1652024142/PI%20Dogs%20App/Landing_Page_eivcwc.png" width="450"/>
@@ -30,7 +27,6 @@ The technological stack used for development was:
 Tryout all the functionalities on the [deploy](https:www.google.com) or whatch this video at [YouTube](https://www.youtube.com/watch?v=zPcRGyuPLb0).
 
 
-#
 ## Feedback
 
 If you have any feedback, please reach me out at tomasbohngs@gmail.com or at:
