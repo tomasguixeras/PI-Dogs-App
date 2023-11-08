@@ -34,7 +34,7 @@ If you have any feedback, please reach me out at tomasbohngs@gmail.com or at:
 
 
 <div id="badges">
-  <a href="https://www.linkedin.com/in/tomasbohnguixeras/" target="_blank" >
+  <a href="https://www.linkedin.com/in/tomasguixeras/" target="_blank" >
     <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>
   </a>
   <a href="https://twitter.com/tomasguixeras" target="_blank" >
@@ -46,7 +46,7 @@ If you have any feedback, please reach me out at tomasbohngs@gmail.com or at:
   <a href="https://t.me/tomasguixeras" target="_blank" >
     <img src="https://img.shields.io/badge/Telegram-26A5E4?logo=telegram&logoColor=fff&style=for-the-badge" alt="Telegram Badge"/>
   </a>
-  <a href="https://tomasbohngs.vercel.app/" target="_blank" >
+  <a href="https://tomasguixeras.vercel.app/" target="_blank" >
     <img src="https://img.shields.io/badge/Portfolio-yellow?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Portfolio Badge"/>
   </a>
 </div>
