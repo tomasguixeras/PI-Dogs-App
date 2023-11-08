@@ -1,4 +1,5 @@
 <img src="https://res.cloudinary.com/tomyboohngs/image/upload/v1660682891/TomasBohnGs/Tomas_YW_h13vjb.png" width="100" align="right"/>
+<br/><br/>
 
 # Heny Dog App
 This web app was designed to give dog enthusiasts a minimalistic and good-looking website where to check stats of their favorite dog breeds.\
